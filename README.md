@@ -1,3 +1,3 @@
 # Ted-Downloader
 
-The source code for the TED downloader tool across versions
+The source code for the TED downloader tool
