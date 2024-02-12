@@ -1,5 +1,5 @@
 ﻿<Window x:Class="TED_Downloader.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="TED Downloader" Height="498" Width="596" ResizeMode="CanMinimize" ShowInTaskbar="False" Topmost="True" WindowStyle="ThreeDBorderWindow" 
+        Title="TED Downloader" Height="486" Width="589" ResizeMode="CanMinimize" ShowInTaskbar="False" Topmost="True" WindowStyle="ThreeDBorderWindow" 
         Icon="/TED%20Downloader;component/Download-icon.ico">
 
     <Window.Resources>
@@ -50,9 +50,9 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
+        
     </Window.Resources>
-
+    
 
     <Grid Height="452" Width="569">
         <Grid.ColumnDefinitions>
@@ -63,23 +63,23 @@
             <RowDefinition Height="0*" />
             <RowDefinition Height="165*" />
             <RowDefinition Height="284*" />
-        </Grid.RowDefinitions>
-
+        </Grid.RowDefinitions>              
+        
         <Rectangle Height="39" HorizontalAlignment="Left" Margin="12,25,0,0" Name="TED_Video_Quality_Rectangle" Stroke="Black" VerticalAlignment="Top" Width="362" Fill="White" Grid.Row="1" Grid.Column="1" />
         <Label Content="Select the Video Quality : " Height="28" HorizontalAlignment="Left" Margin="16,30,0,0" Name="TED_Video_Quality_Lbl" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" />
         <RadioButton Content="Low" Height="16" GroupName="Video_Quality" HorizontalAlignment="Left" Margin="166,35,0,0" Name="TED_VidQual_Low" VerticalAlignment="Top" IsChecked="True" Grid.Row="1" Grid.Column="1" />
         <RadioButton Content="Regular" Height="16" GroupName="Video_Quality" HorizontalAlignment="Left" Margin="234,35,0,0" Name="TED_VidQual_Reg" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" />
         <RadioButton Content="High" Height="16" GroupName="Video_Quality" HorizontalAlignment="Left" Margin="309,35,0,0" Name="TED_VidQual_High" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" />
-
+        
         <TextBox Height="23" HorizontalAlignment="Left" Margin="12,95,0,0" Name="DownloadFolderpath" VerticalAlignment="Top" Width="437" IsReadOnly="True" Grid.Row="1" Grid.Column="1" />
         <Button Content="Browse" Height="25" HorizontalAlignment="Right" Margin="0,92,18,0" Name="DownloadFolderbtn" VerticalAlignment="Top" Width="90" ButtonBase.Click="DownloadFolderbtn_Click" Grid.Row="1" Grid.Column="1" />
         <Label Content="Select the Download Folder :" Height="28" HorizontalAlignment="Left" Margin="12,65,0,0" Name="DownloadFolderpathlbl" VerticalAlignment="Top" Foreground="Black" Grid.Row="1" Grid.Column="1" />
-
+        
         <Button Content="Get Ted Talks" Height="32" HorizontalAlignment="Left" Margin="12,124,0,0" Name="GtTed" VerticalAlignment="Top" Width="539" Click="GtTED_Click" Grid.Row="1" Grid.Column="1" />
-        <ProgressBar Height="27" HorizontalAlignment="Left" Margin="12,230,0,0" Name="TED_Progress_Bar" VerticalAlignment="Top" Width="457" Minimum="0" Grid.Row="2" Grid.Column="1" />
+        <ProgressBar Height="27" HorizontalAlignment="Left" Margin="12,230,0,0" Name="TED_Progress_Bar" VerticalAlignment="Top" Width="457" Minimum="0" Grid.Row="2" Grid.Column="1" />                
 
         <Label Content="" Height="28" HorizontalAlignment="Left" Margin="12,264,0,0" Name="TED_Progress_Bar_lbl" VerticalAlignment="Top" Grid.Row="2" Grid.Column="1" />
-        <Label Content="Copyright © 2011 Obin Shah" Height="28" HorizontalAlignment="Left" Margin="394,264,0,0" Name="Copyrightlbl" VerticalAlignment="Top" Grid.Row="2" Grid.Column="1" Width="167" />
+        <Label Content="Copyright © 2011 Obin Shah" Height="28" HorizontalAlignment="Left" Margin="412,264,0,0" Name="Copyrightlbl" VerticalAlignment="Top" Grid.Row="2" Grid.Column="1" />
 
         <Button Content="P" Height="39" HorizontalAlignment="Left" Margin="408,25,0,0" Name="ProxyButton" VerticalAlignment="Top" Width="41" FontWeight="Bold" FontSize="13" Foreground="#FF0000D0" Click="InfoButton_Click" Grid.Row="1" Grid.Column="1" ToolTip="Click this Button to enter Proxy Settings." />
         <Button Content="i" Height="39" HorizontalAlignment="Left" Margin="463,25,0,0" Name="InfoButton" VerticalAlignment="Top" Width="41" FontWeight="Bold" FontSize="18" Foreground="#FF0000D0" Click="InfoButton_Click" Grid.Row="1" Grid.Column="1" />
@@ -116,7 +116,7 @@
                         <DataTemplate>
                             <CheckBox x:Name="Chk" Tag="{Binding}" IsChecked="{Binding Path=Status, Mode=TwoWay}" Checked="Chk_Checked" Unchecked="Chk_Checked"/>
                         </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn.CellTemplate>                    
                 </DataGridTemplateColumn>
 
                 <DataGridTextColumn Header="Video Title" Binding="{Binding Title}" Width="355" IsReadOnly="True">
@@ -126,8 +126,8 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Event Name" Binding="{Binding Event_Name}" Width="150" IsReadOnly="True"/>
-
+                <DataGridTextColumn Header="Event Name" Binding="{Binding Event_Name}" Width="150" IsReadOnly="True"/>                    
+                
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="" Name="TED_Selected_Videos_Count_lbl" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="1" Grid.Row="2" Margin="0,0,5,0" />
