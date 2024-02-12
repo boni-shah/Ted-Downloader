@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/TED Downloader/bin/Debug
+/TED Downloader/obj/x86/Debug
+/TED Downloader/bin/x64/Debug
+/TED Downloader/obj/x64
+/TED Downloader/Images/Check
