@@ -49,7 +49,6 @@ namespace TEDinator.Handler
                 sk.SetValue("Download Quality", ObjApplicationSettings.Download_Quality);
                 sk.SetValue("IP Address", ObjApplicationSettings.IPAddress);
                 sk.SetValue("IP Port", ObjApplicationSettings.IPPort);
-                sk.SetValue("Subtitle Language", ObjApplicationSettings.SubtitleLanguage);
                 sk.SetValue("Last Run Date", ObjApplicationSettings.LastRunDate);
                 sk.SetValue("No. of Runs", ObjApplicationSettings.RunCount);
                 sk.SetValue("Error Count", ObjApplicationSettings.ErrorCount);
@@ -73,7 +72,6 @@ namespace TEDinator.Handler
                 ObjApplicationSettings.Download_Quality = (int)sk.GetValue("Download Quality");
                 ObjApplicationSettings.IPAddress = IPAddress.Parse(sk.GetValue("IP Address").ToString());
                 ObjApplicationSettings.IPPort = (int)sk.GetValue("IP Port");
-                ObjApplicationSettings.SubtitleLanguage = sk.GetValue("Subtitle Language").ToString();
                 ObjApplicationSettings.LastRunDate = sk.GetValue("Last Run Date").ToString();
                 ObjApplicationSettings.RunCount = (int)sk.GetValue("No. of Runs");
                 ObjApplicationSettings.ErrorCount = (int)sk.GetValue("Error Count");

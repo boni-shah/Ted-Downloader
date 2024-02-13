@@ -27,6 +27,8 @@ namespace TEDinator.TEDClasses
             }
         }
 
+        public bool IsAddedThroughBulk { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public TED_Video() { }
@@ -42,6 +44,7 @@ namespace TEDinator.TEDClasses
             Download_Location_med = item.Download_Location_med;
             Download_Location_high = item.Download_Location_high;
             Status = item.Status;
+            IsAddedThroughBulk = item.IsAddedThroughBulk;
         }
     }
 }

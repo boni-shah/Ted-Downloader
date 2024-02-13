@@ -33,97 +33,11 @@
             <Label Content="Incorrect Value Entered!!!" Name="ErrroLbl" Visibility="Hidden" Height="28" HorizontalAlignment="Left" Margin="347,12,0,0" VerticalAlignment="Top" Width="Auto" Foreground="Red" />
         </Grid>
         <Grid Grid.Row="3">
-            <Label Content="Select Subtitle Language : " Height="28" HorizontalAlignment="Left" Margin="12,10,0,0" Name="Subtitle_lbl" VerticalAlignment="Top" />
-            <ComboBox Height="23" HorizontalAlignment="Left" Margin="183,10,0,0" Name="Subtitle_combo" VerticalAlignment="Top" Width="178" SelectedValuePath="Tag" >
-                <ComboBoxItem Tag="af" Content="Afrikaans" />
-                <ComboBoxItem Tag="sq" Content="Albanian" />
-                <ComboBoxItem Tag="amh" Content="Amharic" />
-                <ComboBoxItem Tag="ar" Content="Arabic" />
-                <ComboBoxItem Tag="hy" Content="Armenian" />
-                <ComboBoxItem Tag="as" Content="Assamese" />
-                <ComboBoxItem Tag="az" Content="Azerbaijani" />
-                <ComboBoxItem Tag="eu" Content="Basque" />
-                <ComboBoxItem Tag="bn" Content="Bengali" />
-                <ComboBoxItem Tag="bi" Content="Bislama" />
-                <ComboBoxItem Tag="bs" Content="Bosnian" />
-                <ComboBoxItem Tag="bg" Content="Bulgarian" />
-                <ComboBoxItem Tag="my" Content="Burmese" />
-                <ComboBoxItem Tag="ca" Content="Catalan" />
-                <ComboBoxItem Tag="ceb" Content="Cebuano" />
-                <ComboBoxItem Tag="zh-cn" Content="Chinese, Simplified" />
-                <ComboBoxItem Tag="zh-tw" Content="Chinese, Traditional" />
-                <ComboBoxItem Tag="zh" Content="Chinese, Yue" />
-                <ComboBoxItem Tag="hr" Content="Croatian" />
-                <ComboBoxItem Tag="cs" Content="Czech" />
-                <ComboBoxItem Tag="da" Content="Danish" />
-                <ComboBoxItem Tag="nl" Content="Dutch" />
-                <ComboBoxItem Tag="en" Content="English" IsSelected="True" />
-                <ComboBoxItem Tag="eo" Content="Esperanto" />
-                <ComboBoxItem Tag="et" Content="Estonian" />
-                <ComboBoxItem Tag="fil" Content="Filipino" />
-                <ComboBoxItem Tag="fi" Content="Finnish" />
-                <ComboBoxItem Tag="fr" Content="French" />
-                <ComboBoxItem Tag="fr-ca" Content="French, Canadian" />
-                <ComboBoxItem Tag="gl" Content="Galician" />
-                <ComboBoxItem Tag="ka" Content="Georgian" />
-                <ComboBoxItem Tag="de" Content="German" />
-                <ComboBoxItem Tag="el" Content="Greek" />
-                <ComboBoxItem Tag="gu" Content="Gujarati" />
-                <ComboBoxItem Tag="hau" Content="Hausa" />
-                <ComboBoxItem Tag="he" Content="Hebrew" />
-                <ComboBoxItem Tag="hi" Content="Hindi" />
-                <ComboBoxItem Tag="hu" Content="Hungarian" />
-                <ComboBoxItem Tag="hup" Content="Hupa" />
-                <ComboBoxItem Tag="is" Content="Icelandic" />
-                <ComboBoxItem Tag="id" Content="Indonesian" />
-                <ComboBoxItem Tag="inh" Content="Ingush" />
-                <ComboBoxItem Tag="it" Content="Italian" />
-                <ComboBoxItem Tag="ja" Content="Japanese" />
-                <ComboBoxItem Tag="kn" Content="Kannada" />
-                <ComboBoxItem Tag="kk" Content="Kazakh" />
-                <ComboBoxItem Tag="km" Content="Khmer" />
-                <ComboBoxItem Tag="tlh" Content="Klingon" />
-                <ComboBoxItem Tag="ko" Content="Korean" />
-                <ComboBoxItem Tag="ky" Content="Kyrgyz" />
-                <ComboBoxItem Tag="lo" Content="Lao" />
-                <ComboBoxItem Tag="lv" Content="Latvian" />
-                <ComboBoxItem Tag="lt" Content="Lithuanian" />
-                <ComboBoxItem Tag="ltz" Content="Luxembourgish" />
-                <ComboBoxItem Tag="rup" Content="Macedo" />
-                <ComboBoxItem Tag="mk" Content="Macedonian" />
-                <ComboBoxItem Tag="ms" Content="Malay" />
-                <ComboBoxItem Tag="ml" Content="Malayalam" />
-                <ComboBoxItem Tag="mt" Content="Maltese" />
-                <ComboBoxItem Tag="mr" Content="Marathi" />
-                <ComboBoxItem Tag="mn" Content="Mongolian" />
-                <ComboBoxItem Tag="ne" Content="Nepali" />
-                <ComboBoxItem Tag="nb" Content="Norwegian Bokmal" />
-                <ComboBoxItem Tag="nn" Content="Norwegian Nynorsk" />
-                <ComboBoxItem Tag="fa" Content="Persian" />
-                <ComboBoxItem Tag="pl" Content="Polish" />
-                <ComboBoxItem Tag="pt" Content="Portuguese" />
-                <ComboBoxItem Tag="pt-br" Content="Portuguese, Brazilian" />
-                <ComboBoxItem Tag="ro" Content="Romanian" />
-                <ComboBoxItem Tag="ru" Content="Russian" />
-                <ComboBoxItem Tag="sr" Content="Serbian" />
-                <ComboBoxItem Tag="sh" Content="Serbo-Croatian" />
-                <ComboBoxItem Tag="si" Content="Sinhala" />
-                <ComboBoxItem Tag="sk" Content="Slovak" />
-                <ComboBoxItem Tag="sl" Content="Slovenian" />
-                <ComboBoxItem Tag="es" Content="Spanish" />
-                <ComboBoxItem Tag="swa" Content="Swahili" />
-                <ComboBoxItem Tag="sv" Content="Swedish" />
-                <ComboBoxItem Tag="tl" Content="Tagalog" />
-                <ComboBoxItem Tag="tg" Content="Tajik" />
-                <ComboBoxItem Tag="ta" Content="Tamil" />
-                <ComboBoxItem Tag="te" Content="Telugu" />
-                <ComboBoxItem Tag="th" Content="Thai" />
-                <ComboBoxItem Tag="tr" Content="Turkish" />
-                <ComboBoxItem Tag="uk" Content="Ukrainian" />
-                <ComboBoxItem Tag="ur" Content="Urdu" />
-                <ComboBoxItem Tag="uz" Content="Uzbek" />
-                <ComboBoxItem Tag="vi" Content="Vietnamese" />
-            </ComboBox>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="49*"/>
+                <ColumnDefinition Width="496*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="This app no longer supports Subtitles" Height="28" HorizontalAlignment="Left" Margin="12,10,0,0" Name="Subtitle_lbl" VerticalAlignment="Top" Grid.ColumnSpan="2" />
         </Grid>
         <Grid Grid.Row="4">
             <Label Content="Total Application runs : " Height="28" HorizontalAlignment="Left" Margin="12,2,0,0" Name="Totalrun_lbl" VerticalAlignment="Top" />

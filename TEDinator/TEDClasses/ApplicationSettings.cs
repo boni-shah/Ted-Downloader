@@ -9,7 +9,7 @@ namespace TEDinator.TEDClasses
         public int Download_Quality { set; get; }    //1=Low, 2=Medium, 3=High
         public IPAddress IPAddress { get; set; }
         public int IPPort { get; set; }
-        public String SubtitleLanguage { set; get; }
+        //public String SubtitleLanguage { set; get; }
         public String LastRunDate { set; get; }
         public int RunCount { set; get; }
         public int ErrorCount { set; get; }
@@ -20,7 +20,7 @@ namespace TEDinator.TEDClasses
             Download_Quality = 1;
             IPAddress = IPAddress.Parse("0.0.0.0");
             IPPort = 0;
-            SubtitleLanguage = "en";
+            //SubtitleLanguage = "en";
             LastRunDate = DateTime.Today.ToShortDateString();
             RunCount = 0;
             ErrorCount = 0;
