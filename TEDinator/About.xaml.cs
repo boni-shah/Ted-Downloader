@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Xml;
 
-namespace TED_Downloader
+namespace TEDinator
 {
     /// <summary>
     /// Interaction logic for About.xaml
@@ -50,7 +50,7 @@ namespace TED_Downloader
         #region Member data
         private XmlDocument xmlDoc = null;
 
-        private const string Upcoming = "\n\nWatch out for these in my Next Release :\n\tAbility to Download Subtitles\n\nIf you have any Feedback(good or bad) or any Functionality you would like in the app, mail me at : obin.shah@gmail.com or use the contact form on obinshah.wordpress.com";
+        private const string Upcoming = "\n\nWatch out for these in my Next Release :\n\tAbility to Pause,resume downloads\n\tAbility to search by categories and themes\n\tAutomatically download new videos or a Scheduler\n\tA windows service which manages everything....Configure and run ;)\n\tAnything else that you request :)\n\nIf you have any Feedback(good or bad) or any Functionality you would like in the app, mail me at : obin.shah@gmail.com or use the contact form on obinshah.wordpress.com";
         
         private const string propertyNameTitle = "Title";
         private const string propertyNameDescription = "Description";
