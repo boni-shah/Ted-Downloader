@@ -26,3 +26,5 @@
 /TEDinator/bin
 /TEDinator/obj
 /TEDinator/TEDinator.csproj.user
+/packages/Newtonsoft.Json.7.0.1
+/TEDinator.sln.DotSettings.user

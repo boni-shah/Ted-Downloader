@@ -8,11 +8,11 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("TEDinator")]
-[assembly: AssemblyDescription("A Free and Protable tool to download the videos from TED Website.")]
+[assembly: AssemblyDescription("A Free and Portable tool to download the videos from TED Website.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("OUtilities")]
 [assembly: AssemblyProduct("TEDinator")]
-[assembly: AssemblyCopyright("Copyright © Obin Shah 2011")]
+[assembly: AssemblyCopyright("Copyright © Obin Shah 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -51,5 +51,5 @@ using System.Windows;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("3.7.1.3")]
-[assembly: AssemblyFileVersion("3.7.1.3")]
+[assembly: AssemblyVersion("3.8.5.5")]
+[assembly: AssemblyFileVersion("3.8.5.5")]

@@ -45,8 +45,6 @@
             <Setter Property="Control.VerticalAlignment" Value="Center" />
         </Style>
         <Style x:Key="ReadOnlyDescStyle" TargetType="{x:Type TextBox}">
-            <Setter Property="MinLines" Value="6" />
-            <Setter Property="MaxLines" Value="6" />
             <Setter Property="IsReadOnly" Value="True" />
             <Setter Property="TextWrapping" Value="WrapWithOverflow" />
             <Setter Property="VerticalScrollBarVisibility" Value="Visible" />

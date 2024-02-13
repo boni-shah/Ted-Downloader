@@ -117,7 +117,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Video Title" Binding="{Binding Video_Title}" Width="315" IsReadOnly="True">
+                    <DataGridTextColumn Header="Video Title" Binding="{Binding Title}" Width="405" IsReadOnly="True">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="{x:Type TextBlock}">
                                 <Setter Property="TextWrapping" Value="Wrap"/>
@@ -126,26 +126,13 @@
                     </DataGridTextColumn>
                     <DataGridTextColumn Header="Event Name" Binding="{Binding Event_Name}" Width="150" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="90" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Duration" Binding="{Binding Duration}" Width="90" IsReadOnly="True"/>
-
+                    <!--<DataGridTextColumn  Header="Date"  SortMemberPath="Date.Year" Binding="{Binding Date,StringFormat=dd/MMM/yyyy}" Width="90" IsReadOnly="True"/>-->
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
         <Grid Margin="2 5 2 2" HorizontalAlignment="Center">
             <Rectangle Fill="White" Height="30" HorizontalAlignment="Left" Name="Option_Rectangle" VerticalAlignment="Top" Width="700" />
-            <CheckBox Content="Download All Videos" HorizontalAlignment="Left" Height="19" Name="Download_All_Videos_chkbx" Width="145" Margin="5 5 2 2" Checked="All_Videos_Select" Unchecked="All_Videos_UnSelect" />
-            
-            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,5,5,5" Width="265">
-                <TextBlock Text="Export the Links to : " Margin="2 2 2 2"></TextBlock>
-                <Button x:Name="Exportlinksbtn" Content="Select a Value" Width="100" Background="{x:Null}" Click="Exportlinksbtn_Click"></Button>
-                <Popup x:Name="ExportPopup" PlacementTarget="{Binding ElementName=Exportlinksbtn}" PopupAnimation="Fade" IsOpen="False" StaysOpen="False">
-                    <ListBox x:Name="ExportList" Width="100" SelectionChanged="ExportList_SelectionChanged">
-                        <ListBoxItem Content="Text File"/>
-                        <ListBoxItem Content="HTML File"/>
-                        <ListBoxItem Content="XML File"/>
-                    </ListBox>
-                </Popup>
-            </StackPanel>
+            <CheckBox Content="Download All Videos" HorizontalAlignment="Left" Height="19" Name="Download_All_Videos_chkbx" Width="145" Margin="5 5 2 2" Checked="All_Videos_Select" Unchecked="All_Videos_UnSelect" />                        
         </Grid>
         <TextBox Name="TED_Progress_Notification_txt" Height="80" Margin="2 2 2 2"  VerticalAlignment="Top" HorizontalAlignment="Left" Width="700" IsReadOnly="True"
                  AcceptsReturn="True" AcceptsTab="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"  Background="White" />

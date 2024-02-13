@@ -1,0 +1,209 @@
+﻿https://api.ted.com/v1/languages.json?api-key=nkhkpxs6aspa5c73rnmc2vf7
+
+{
+    "languages": [{
+        "language": {
+            "language_code": "af",
+            "name": "Afrikaans",
+            "description": null,
+            "is_rtl": false,
+            "iso_639_1": "af",
+            "iso_639_3": "afr",
+            "hostname_prefix": null
+        }
+    }, {
+        "language": {
+            "language_code": "sq",
+            "name": "Albanian",
+            "description": null,
+            "is_rtl": false,
+            "iso_639_1": "sq",
+            "iso_639_3": "sqi",
+            "hostname_prefix": null
+        }
+    }, {
+        "language": {
+            "language_code": "arq",
+            "name": "Algerian Arabic",
+            "description": null,
+            "is_rtl": false,
+            "iso_639_1": null,
+            "iso_639_3": "arq",
+            "hostname_prefix": null
+        }
+    }, {
+        "language": {
+            "language_code": "am",
+            "name": "Amharic",
+            "description": null,
+            "is_rtl": false,
+            "iso_639_1": "am",
+            "iso_639_3": "amh",
+            "hostname_prefix": null
+        }
+    }, {
+        "language": {
+            "language_code": "ar",
+            "name": "Arabic",
+            "description": null,
+            "is_rtl": true,
+            "iso_639_1": "ar",
+            "iso_639_3": "ara",
+            "hostname_prefix": null
+        }
+    }, {
+        "language": {
+            "language_code": "hy",
+            "name": "Armenian",
+            "description": null,
+            "is_rtl": false,
+            "iso_639_1": "hy",
+            "iso_639_3": "hye",
+            "hostname_prefix": null
+        }
+    }, {
+        "language": {
+            "language_code": "as",
+            "name": "Assamese",
+            "description": null,
+            "is_rtl": false,
+            "iso_639_1": "as",
+            "iso_639_3": "asm",
+            "hostname_prefix": null
+        }
+    }, {
+        "language": {
+            "language_code": "ast",
+            "name": "Asturian",
+            "description": null,
+            "is_rtl": false,
+            "iso_639_1": null,
+            "iso_639_3": "ast",
+            "hostname_prefix": null
+        }
+    }, {
+        "language": {
+            "language_code": "az",
+            "name": "Azerbaijani",
+            "description": null,
+            "is_rtl": false,
+            "iso_639_1": "az",
+            "iso_639_3": "aze",
+            "hostname_prefix": null
+        }
+    }, {
+        "language": {
+            "language_code": "eu",
+            "name": "Basque",
+            "description": null,
+            "is_rtl": false,
+            "iso_639_1": "eu",
+            "iso_639_3": "eus",
+            "hostname_prefix": null
+        }
+    }, {
+        "language": {
+            "language_code": "be",
+            "name": "Belarusian",
+            "description": null,
+            "is_rtl": false,
+            "iso_639_1": "be",
+            "iso_639_3": "bel",
+            "hostname_prefix": null
+        }
+    }, {
+        "language": {
+            "language_code": "bn",
+            "name": "Bengali",
+            "description": null,
+            "is_rtl": false,
+            "iso_639_1": "bn",
+            "iso_639_3": "ben",
+            "hostname_prefix": null
+        }
+    }, {
+        "language": {
+            "language_code": "bi",
+            "name": "Bislama",
+            "description": null,
+            "is_rtl": false,
+            "iso_639_1": "bi",
+            "iso_639_3": "bis",
+            "hostname_prefix": null
+        }
+    }, {
+        "language": {
+            "language_code": "bs",
+            "name": "Bosnian",
+            "description": null,
+            "is_rtl": false,
+            "iso_639_1": "bs",
+            "iso_639_3": "bos",
+            "hostname_prefix": null
+        }
+    }, {
+        "language": {
+            "language_code": "bg",
+            "name": "Bulgarian",
+            "description": null,
+            "is_rtl": false,
+            "iso_639_1": "bg",
+            "iso_639_3": "bul",
+            "hostname_prefix": null
+        }
+    }, {
+        "language": {
+            "language_code": "my",
+            "name": "Burmese",
+            "description": null,
+            "is_rtl": false,
+            "iso_639_1": "my",
+            "iso_639_3": "mya",
+            "hostname_prefix": null
+        }
+    }, {
+        "language": {
+            "language_code": "ca",
+            "name": "Catalan",
+            "description": null,
+            "is_rtl": false,
+            "iso_639_1": "ca",
+            "iso_639_3": "cat",
+            "hostname_prefix": null
+        }
+    }, {
+        "language": {
+            "language_code": "ceb",
+            "name": "Cebuano",
+            "description": null,
+            "is_rtl": false,
+            "iso_639_1": null,
+            "iso_639_3": "ceb",
+            "hostname_prefix": null
+        }
+    }, {
+        "language": {
+            "language_code": "zh-cn",
+            "name": "Chinese, Simplified",
+            "description": null,
+            "is_rtl": false,
+            "iso_639_1": "zh",
+            "iso_639_3": "zho",
+            "hostname_prefix": "cn"
+        }
+    }, {
+        "language": {
+            "language_code": "zh-tw",
+            "name": "Chinese, Traditional",
+            "description": null,
+            "is_rtl": false,
+            "iso_639_1": "zh",
+            "iso_639_3": "zho",
+            "hostname_prefix": "zh"
+        }
+    }],
+    "counts": {
+        "this": 20,
+        "total": 108
+    }
+}
