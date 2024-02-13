@@ -67,7 +67,7 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>8492DE1F9FEA02B4E36BDECF2F98DEDCCA236EF8</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>C0673AC7879A52D05D28375DDF39107A0B82C440</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>TED Downloader_1_TemporaryKey.pfx</ManifestKeyFile>
@@ -112,15 +112,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Constants.cs" />
+    <Compile Include="Proxy.xaml.cs">
+      <DependentUpon>Proxy.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StaticLogic.cs" />
+    <Compile Include="TED_DList.cs" />
     <Page Include="About.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AppStyles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GlassButton.xaml">
+    <Page Include="DataGridStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -139,6 +141,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Proxy.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -192,26 +198,9 @@
     <Resource Include="AboutLogo.png">
       <SubType>Image</SubType>
     </Resource>
-    <Resource Include="Ted_SourceCode.txt" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Download-icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="TED_Subtitles.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Upcoming_Releases.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\BlackWood.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Pause.png" />
-    <Resource Include="Images\Play.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Stop.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

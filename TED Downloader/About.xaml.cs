@@ -50,7 +50,7 @@ namespace TED_Downloader
         #region Member data
         private XmlDocument xmlDoc = null;
 
-        private const string Upcoming = "\n\nWatch out for these in my Next Release :\n\tAbility to Add a Proxy.\n\tAbility to Select Specific Videos to be Downloaded.\n\tAbility to Download Selected Videos and Subtitles.\n\tAbility to Export Links.\n\tAbility to Download Subtitles\n\nIf you have any Feedback(good or bad) or any Functionality you would like in the app, mail me at : obin.shah@gmail.com or use the contact form on obinshah.wordpress.com";
+        private const string Upcoming = "\n\nWatch out for these in my Next Release :\n\tAbility to Download Subtitles\n\nIf you have any Feedback(good or bad) or any Functionality you would like in the app, mail me at : obin.shah@gmail.com or use the contact form on obinshah.wordpress.com";
         
         private const string propertyNameTitle = "Title";
         private const string propertyNameDescription = "Description";

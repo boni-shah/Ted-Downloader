@@ -1,10 +1,12 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Windows;
-using System.Data;
 using System.Windows.Threading;
-
+using System.Windows.Controls;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace TED_Downloader
 {
@@ -15,38 +17,27 @@ namespace TED_Downloader
     {
         #region Variables
 
-            public DataTable TED_Links = new DataTable();
-
-            const String TED_DownloadPage_URL = @"http://www.ted.com/talks/quick-list";
-            const String TED_HomePage_URL = @"http://www.ted.com";
-            const String NotFound = "Video Not Found.";
-            const String Exception_Error_Text = "Invalid Tag Encountered in table Downloads. Please Restart Application.";            
-            const String Error_Text = "Ouch!!! We just had a Boo-Boo!!";
-
             String DownloadFolderPathvar;
-            String Download_Quality = "Low";
+            String Download_Quality = Constants.Low;
             String File_Name = String.Empty;
 
-            const String between0_10 = "This is Going to take some time. Don't hold your breath!!!";
-            const String between10_20 = "We are getting closer inch by inch!!! Have Heart, my dear friend.";
-            const String between20_30 = "You are thinking that if this was going any slower, it would be going backwards, right??";
-            const String between30_40 = "Remember, Slow and Steady wins the Race.";
-            const String between40_50 = "We are approaching something great....can you feel it ??";
-            const String between50_60 = "Phew!!! We just crossed the halfway Mark!!";
-            const String between60_70 = "Have Patience, Little One. We are getting there!!!";
-            const String between70_80 = "I am really amazed at the patience you have shown!!! Mama's Proud, dear!!!";
-            const String between80_90 = "Patience has its virtue and you are doing good!! Kudos!!!";
-            const String between90_100 = "Just a bit more!!! Hang on, Mac!!!";
-
+            bool isDownload_Active = false;           
+            int IPPortValue = 0;
+            //int IPPortValue = 80;
             int TED_Videos_Count = 0;
 
-            bool isDownload_Active = false;            
-            //bool Shutdown_System = false;
-        
-            Exception InvalidTagException = new Exception(Exception_Error_Text);
+            IPAddress IPAddressValue = IPAddress.Parse("0.0.0.0");  
+            //IPAddress IPAddressValue = IPAddress.Parse("148.87.67.174");
+            
             System.Windows.Forms.FolderBrowserDialog DownloadFolderBrowser = new System.Windows.Forms.FolderBrowserDialog();
             About Aboutbox;
+            
+            Exception InvalidTagException = new Exception(Constants.Exception_Error_Text);
+
             private delegate void SimpleTEDDelegate();
+
+            public ObservableCollection<TED_DList> TEDLinks_All { get; set; }
+            public ObservableCollection<TED_DList> TEDLinks_Selected { get; set; }
 
         #endregion
 
@@ -55,36 +46,23 @@ namespace TED_Downloader
             public MainWindow()
             {
                 InitializeComponent();
-            }
+                
+                TEDLinks_All = new ObservableCollection<TED_DList>();
+                TEDLinks_Selected = new ObservableCollection<TED_DList>();
 
-            private void GtTED_Click(object sender, RoutedEventArgs e)
-            {
-                InitialiseParameters();
-
-                if (String.IsNullOrEmpty(DownloadFolderPathvar))
-                    MessageBox.Show("Please Select a Valid Path!!", "User Error!!");
-                else
-                {                    
-                    if (!isDownload_Active)
-                    {
-                        isDownload_Active = true;                        
-                        if (TED_Analysis())
-                        {                            
-                            dataGrid1.ItemsSource = TED_Links.DefaultView;
-
-                            //SimpleTEDDelegate Download_Invoke_Delegate = new SimpleTEDDelegate(TED_Download);   ///This will delegate TED_Download();
-                            //Download_Invoke_Delegate.BeginInvoke(null, null);                            
-                        }
-                    }
-                    else
-                        MessageBox.Show("Download is already Active!!!!", "User Error!!");
-                }
+                DisplayCountLbl();
+               // SetProxy(); //Remove Later
             }
 
             private void DownloadFolderbtn_Click(object sender, RoutedEventArgs e)
             {
-                if (DownloadFolderBrowser.ShowDialog().Equals(System.Windows.Forms.DialogResult.OK))
-                    DownloadFolderpath.Text = DownloadFolderBrowser.SelectedPath;
+                if (!isDownload_Active)
+                {
+                    if (DownloadFolderBrowser.ShowDialog().Equals(System.Windows.Forms.DialogResult.OK))
+                        DownloadFolderpath.Text = DownloadFolderBrowser.SelectedPath;
+                }
+                else
+                    MessageBox.Show(Constants.Download_Error, Constants.User_Error);
             }
 
             private void InfoButton_Click(object sender, RoutedEventArgs e)
@@ -98,221 +76,298 @@ namespace TED_Downloader
                 else
                     Aboutbox.Focus();
             }
-        #endregion
 
-        #region Logic Functions
-
-            private bool TED_Analysis()
+            private void ProxyButton_Click(object sender, RoutedEventArgs e)
             {
-                try
+                if (!isDownload_Active)
                 {
-                    int start_pos = 0;
-                    int end_pos = 0;
+                    Proxy prxy = new Proxy(IPAddressValue.ToString(), IPPortValue);
 
-                    String Date = NotFound;
-                    String Place = NotFound;
-                    String Video_Title = NotFound;
-                    String Video_HomePage = NotFound;
-                    String Duration = NotFound;
-                    String Download_Location = NotFound;
+                    prxy.ProxyWindow.ShowDialog();
 
-                    HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(TED_DownloadPage_URL);
-                    request.Method = WebRequestMethods.Http.Get;
-                    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-                    StreamReader reader = new StreamReader(response.GetResponseStream());
-                    String text = reader.ReadLine();
-
-                    TED_Links.Columns.Add("Date", typeof(System.String));
-                    TED_Links.Columns.Add("Place", typeof(System.String));
-                    TED_Links.Columns.Add("Video_Title", typeof(System.String));
-                    TED_Links.Columns.Add("Video_HomePage", typeof(System.String));
-                    TED_Links.Columns.Add("Duration", typeof(System.String));
-                    TED_Links.Columns.Add("Download_Location", typeof(System.String));
-
-                    while (text != null)
+                    if (prxy.IPEntered)
                     {
-                        if (text.Contains("<table class=\"downloads\">"))
-                        {
-                            for (int i = 0; i <= 7; i++)
-                                text = reader.ReadLine();
-
-                            while (!text.Contains("</table>"))
-                            {
-                                if (!text.Contains("\t<tr>"))
-                                    throw InvalidTagException;
-
-                                text = reader.ReadLine(); //this will read <td> e.g. date "\t\t<td>Oct 2011</td>"
-                                if (text.Contains("\t\t<td>"))
-                                {
-                                    start_pos = text.IndexOf("\t\t<td>") + ("\t\t<td>").Length;
-                                    end_pos = text.IndexOf("</td>");
-                                    Date = text.Substring(start_pos, end_pos - start_pos);
-                                }
-                                else
-                                    throw InvalidTagException;
-
-                                text = reader.ReadLine(); //this will read <td> Place e.g. "\t\t<td>TEDGlobal 2011</td>"
-                                if (text.Contains("\t\t<td>"))
-                                {
-                                    start_pos = text.IndexOf("\t\t<td>") + ("\t\t<td>").Length;
-                                    end_pos = text.IndexOf("</td>");
-                                    Place = text.Substring(start_pos, end_pos - start_pos);
-                                }
-                                else
-                                    throw InvalidTagException;
-
-                                text = reader.ReadLine(); //this will read the blank Space inbetween e.g. "\t\t<td>"
-
-                                text = reader.ReadLine(); //this will read <td> Video Title  e.g. "\t\t\t<a href=\"/talks/todd_kuiken_a_prosthetic_arm_that_feels.html\">Todd Kuiken: A prosthetic arm that \"feels\"</a>\t\t</td>"
-                                if (text.Contains("\t\t\t<a href=\""))
-                                {
-                                    start_pos = text.IndexOf("\t\t\t<a href=\"") + ("\t\t\t<a href=\"").Length;
-                                    end_pos = text.IndexOf("\">");
-                                    Video_HomePage = TED_HomePage_URL + text.Substring(start_pos, end_pos - start_pos);
-
-                                    start_pos = end_pos + 2;
-                                    end_pos = text.IndexOf("</a>\t\t</td>");
-                                    Video_Title = text.Substring(start_pos, end_pos - start_pos);
-                                }
-                                else
-                                    throw InvalidTagException;
-
-                                text = reader.ReadLine(); //this will read <td> Duration  e.g. "\t\t<td>18:51</td>"
-                                if (text.Contains("\t\t<td>"))
-                                {
-                                    start_pos = text.IndexOf("\t\t<td>") + ("\t\t<td>").Length;
-                                    end_pos = text.IndexOf("</td>");
-                                    Duration = text.Substring(start_pos, end_pos - start_pos);
-                                }
-                                else
-                                    throw InvalidTagException;
-
-                                text = reader.ReadLine(); //this will read <td> download location  e.g. "\t\t<td><a href=\"http://download.ted.com/talks/ToddKuiken_2011G-light.mp4\">Low</a> | <a href=\"http://download.ted.com/talks/ToddKuiken_2011G.mp4\">Regular</a> | <a href=\"http://download.ted.com/talks/ToddKuiken_2011G-480p.mp4\">High</a></td>"
-                                if (text.Contains("\t\t<td>"))
-                                {
-                                    if (text.Contains("<td></td>"))
-                                        Download_Location = NotFound;
-                                    else
-                                    {
-                                        start_pos = text.IndexOf("\t\t<td><a href=\"") + ("\t\t<td><a href=\"").Length;
-                                        end_pos = text.IndexOf("\">Low</a> | <a href=\"");
-                                        if ((bool)TED_VidQual_Low.IsChecked)
-                                            Download_Location = text.Substring(start_pos, end_pos - start_pos);
-
-                                        start_pos = end_pos + ("\">Low</a> | <a href=\"").Length;
-                                        end_pos = text.IndexOf("\">Regular</a> | <a href=\"");
-                                        if ((bool)TED_VidQual_Reg.IsChecked)
-                                            Download_Location = text.Substring(start_pos, end_pos - start_pos);
-
-                                        start_pos = end_pos + ("\">Regular</a> | <a href=\"").Length;
-                                        end_pos = text.IndexOf("\">High</a></td>");
-                                        if ((bool)TED_VidQual_High.IsChecked)
-                                            Download_Location = text.Substring(start_pos, end_pos - start_pos);
-                                    }
-                                }
-                                else
-                                    throw InvalidTagException;
-
-                                text = reader.ReadLine(); //this will read </tr>  e.g. "\t</tr>"
-                                if (!text.Contains("\t</tr>"))
-                                    throw InvalidTagException;
-
-                                TED_Links.Rows.Add(Date, Place, Video_Title, Video_HomePage, Duration, Download_Location);
-                                TED_Videos_Count++;
-                                TED_Progress_Bar_lbl.Content = "Generating List of Links to be Downloaded.  Link Added : " + TED_Videos_Count;
-
-                                text = reader.ReadLine(); //this will read <tr> e.g."\t<tr>" and try to catch the </table> tag.
-                            }
-                        }
-                        text = reader.ReadLine();
+                        IPAddressValue = prxy.IPAddressValue;
+                        IPPortValue = prxy.IPPortValue;
+                        SetProxy();
                     }
-                    response.Close();
-                    return true;
                 }
-                catch (System.Net.WebException Wex)
+                else
+                    MessageBox.Show(Constants.Download_Error, Constants.User_Error);
+            }
+
+            void SelectAllBtn_Clicked(object sender, RoutedEventArgs e)
+            {
+                TEDLinks_Selected.Clear();
+                foreach (TED_DList item in TEDLinks_All)
                 {
-                    MessageBox.Show(Wex.Message, "Connection Error!!");
-                    return false;
+                    item.Status = true;
+                    //if (!TEDLinks_Selected.Contains(new TED_DList(item)))   //bcos of this the item is added twice, once due to item.status and other this
+                    //    TEDLinks_Selected.Add(new TED_DList(item));                        
+
+                    Selection_Screen.SelectedItem = item;
+                    Selection_Screen.ScrollIntoView(item);
                 }
-                catch (Exception ex)
+                TED_Selected_Videos_Count_lbl.Content = String.Format("Videos Selected : {0} of {1}", TEDLinks_All.Count, TEDLinks_All.Count);
+            }
+
+            private void Chk_Checked(object sender, RoutedEventArgs e)
+            {
+                String Temp_Title = ((sender as CheckBox).Tag as TED_DList).Video_Title.ToString();
+                int index = -1;
+
+                foreach (TED_DList item in GetRow(Temp_Title))
                 {
-                    MessageBox.Show(ex.Message, Error_Text);
-                    return false;
+                    if (!TEDLinks_Selected.Contains(item))
+                    {
+                        index = TEDLinks_All.IndexOf(item);
+                        TEDLinks_Selected.Add(item);
+
+                        if (index != -1)
+                            TEDLinks_All[index].Status = true;
+
+                        DisplayCountLbl();                        
+                    }
+                }                
+            }
+
+            private void Chk_UnChecked(object sender, RoutedEventArgs e)
+            {
+                String Temp_Title = ((sender as CheckBox).Tag as TED_DList).Video_Title.ToString();
+                int index = -1;
+
+                foreach (TED_DList item in GetRow(Temp_Title))
+                {
+                    if (TEDLinks_Selected.Contains(item))
+                    {
+                        index = TEDLinks_All.IndexOf(item);
+                        TEDLinks_Selected.Remove(item);
+
+                        if (index != -1)
+                            TEDLinks_All[index].Status = false;
+
+                        DisplayCountLbl();
+                    }
                 }
             }
 
+            private void VidQual_Changed(object sender, RoutedEventArgs e)
+            {
+                try
+                {
+                if(TEDLinks_All != null)
+                    TEDLinks_All.Clear();
+                if (TEDLinks_Selected != null)
+                    TEDLinks_Selected.Clear();
+                    
+                    DisplayCountLbl();
+                }
+                catch
+                { }
+            } 
+        
+            private void DownloadTedbtn_Click(object sender, RoutedEventArgs e)
+            {
+                InitialiseParameters();
+                
+                if (String.IsNullOrEmpty(DownloadFolderPathvar))
+                    MessageBox.Show(Constants.Valid_Path_Error, Constants.User_Error);
+                else
+                {
+                    if (!isDownload_Active)
+                    {                        
+                        try
+                        {
+                            if (TEDLinks_Selected.Count > 0)
+                            {
+                                isDownload_Active = true;
+
+                                TED_Videos_Count = TEDLinks_Selected.Count;
+
+                                Selection_Screen.Visibility = System.Windows.Visibility.Hidden;
+                                TED_Selected_Videos_Count_lbl.Visibility = System.Windows.Visibility.Hidden;
+                                Download_Screen_List.Visibility = System.Windows.Visibility.Visible;
+                                TED_Download_Videos_Count_lbl.Visibility = System.Windows.Visibility.Visible;
+                                TED_Progress_Notification_txt.Visibility = System.Windows.Visibility.Visible;
+
+                                Download_Screen_List.ItemsSource = this.TEDLinks_Selected;
+
+                                TED_Selected_Videos_Count_lbl.Content = "Videos remaining to be Downloaded = " + TEDLinks_Selected.Count;
+
+                                SimpleTEDDelegate Download_Invoke_Delegate = new SimpleTEDDelegate(TED_Download);   ///This will delegate TED_Download();
+                                Download_Invoke_Delegate.BeginInvoke(null, null);                            
+                            }
+                            else
+                                MessageBox.Show(Constants.No_File_Selected_Error, Constants.User_Error);
+                            
+                        }
+                        catch (System.Net.WebException Wex)
+                        {
+                            MessageBox.Show(Wex.Message, Constants.Connection_Error);
+                            isDownload_Active = false;
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, Constants.Error_Text);
+                            isDownload_Active = false;
+                        }                        
+                    }
+                    else
+                        MessageBox.Show(Constants.Download_Error, Constants.User_Error);
+                }
+            }
+
+            private void GetTedLinksbtn_Click(object sender, System.Windows.RoutedEventArgs e)
+            {
+                InitialiseParameters();
+
+                if (String.IsNullOrEmpty(DownloadFolderPathvar))
+                    MessageBox.Show(Constants.Valid_Path_Error, Constants.User_Error);
+                else
+                {
+                    if (!isDownload_Active)
+                    {
+                        TED_Progress_Bar_lbl.Content = "Updating Links....Please Wait....";
+                        TED_Progress_Bar.Value = 0.0;
+                        TEDLinks_Selected.Clear();
+                        try
+                        {
+                            if (StaticLogic.TED_Analysis(TEDLinks_All, Download_Quality))
+                            {
+                                Selection_Screen.Visibility = System.Windows.Visibility.Visible;
+                                TED_Selected_Videos_Count_lbl.Visibility = System.Windows.Visibility.Visible;
+                                Download_Screen_List.Visibility = System.Windows.Visibility.Hidden;
+                                TED_Download_Videos_Count_lbl.Visibility = System.Windows.Visibility.Hidden;
+                                TED_Progress_Notification_txt.Visibility = System.Windows.Visibility.Hidden;
+                                
+                                Selection_Screen.ItemsSource = TEDLinks_All;
+                                                                
+                                DisplayCountLbl();
+                            }
+                        }
+                        catch (System.Net.WebException Wex)
+                        {
+                            MessageBox.Show(Wex.Message, Constants.Connection_Error);
+                            isDownload_Active = false;
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, Constants.Error_Text);
+                            isDownload_Active = false;
+                        }
+                        TED_Progress_Bar_lbl.Content = "";
+                    }
+                    else
+                        MessageBox.Show(Constants.Download_Error, Constants.User_Error);
+                }
+            }
+
+            private void ExportTedLinksbtn_Click(object sender, System.Windows.RoutedEventArgs e)
+            {
+                InitialiseParameters();
+                if (String.IsNullOrEmpty(DownloadFolderPathvar))
+                    MessageBox.Show(Constants.Valid_Path_Error, Constants.User_Error);
+                else
+                {
+                    if (!isDownload_Active)
+                    {
+                        if (TEDLinks_Selected.Count > 0)
+                        {
+                            ExportLinks();
+                            MessageBox.Show(Constants.Success);
+                        }
+                        else
+                            MessageBox.Show(Constants.No_File_Selected_Error, Constants.User_Error);
+                    }
+                    else
+                        MessageBox.Show(Constants.Download_Error, Constants.User_Error);
+                }
+            }          
+
+        #endregion
+
+        #region Logic Functions
+           
             private void TED_Download()
             {
                 bool Result = true;
+                ObservableCollection<TED_DList> Temp_Coll = new ObservableCollection<TED_DList>(TEDLinks_Selected);
+
                 try
                 {
                     SimpleTEDDelegate TED_Initialisation = delegate()
-                    {
-                        TED_Progress_Bar_lbl.Content = "Download Inventory Created. Total Videos to be Downloaded = " + TED_Videos_Count;
-                                        
+                    {                        
+                        TEDLinks_Selected.Cast<TED_DList>();
                         ChangeStateto(false);
+
+                        TED_Progress_Notification_txt.Text = "Download Inventory Created. Total Videos to be Downloaded = " + TED_Videos_Count + "\n\n";
+                        TED_Progress_Bar_lbl.Content = "";
                         TED_Progress_Bar.Maximum = TED_Videos_Count;
                         TED_Progress_Bar.Value = 0.0;
                     };
                     this.Dispatcher.BeginInvoke(DispatcherPriority.Send, TED_Initialisation);
 
-                    for (int i = 0; i < TED_Videos_Count; i++)
-                    {
-                        DataRow TED_Row = TED_Links.Rows[i];
-                        String DownloadLink = NotFound;
+                    foreach (TED_DList item in Temp_Coll)
+                    {                        
+                        String DownloadLink = Constants.NotFound;
                         String DisplayText = String.Empty;
+                        String ProgressDisplayText = String.Empty;
 
-                        String TargetPath = DownloadFolderPathvar + @"\TED_" + Download_Quality + "\\" + TED_Row["Place"].ToString() + "_" + TED_Row["Date"].ToString();
-                        String File_Name = TargetPath + "\\" + CreateProperName(TED_Row["Video_Title"].ToString()) + ".mp4";
-
+                        String TargetPath = DownloadFolderPathvar + @"\TED_" + Download_Quality + "\\" + item.Event_Name.ToString() + "_" + item.Date.ToString();
+                        String File_Name = TargetPath + "\\" + CreateProperName(item.Video_Title.ToString()) + ".mp4";
+                        Double ProgressBarValue = 0; 
                         if (!System.IO.Directory.Exists(TargetPath))
                             System.IO.Directory.CreateDirectory(TargetPath);
 
-                        CreateTextFile(TED_Row, TargetPath);
-                        DownloadLink = TED_Row["Download_Location"].ToString();
-                        DisplayText = "Downloading Video - " + TED_Row["Video_Title"].ToString() + " (Video No.: " + (i + 1) + " )....";
+                        CreateTextFile(item, TargetPath);
+                        DownloadLink = item.Download_Location.ToString();
+                        DisplayText = "Downloading " + item.Video_Title.ToString() + "........";
 
                         SimpleTEDDelegate TED_Notification1 = delegate()
                         {
-                            TED_Progress_Bar_lbl.Content = DisplayText;
+                            TED_Progress_Notification_txt.Text += DisplayText;
+                            ProgressBarValue = TED_Progress_Bar.Value;                            
                         };
                         this.Dispatcher.BeginInvoke(DispatcherPriority.Send, TED_Notification1);
 
+                        ProgressDisplayText = GetProgressText(((ProgressBarValue / Temp_Coll.Count) * 100));
                         Result = Download(DownloadLink, File_Name);
+                        item.Status = false;
+                        
 
                         SimpleTEDDelegate TED_Notification2 = delegate()
                         {
+                            TED_Progress_Bar_lbl.Content = ProgressDisplayText;
                             if (Result)
-                                TED_Progress_Bar_lbl.Content += "Download Succesful.";
+                                TED_Progress_Notification_txt.Text += "Succesful.\n";
                             else
-                                TED_Progress_Bar_lbl.Content += "Download Failed.";
+                                TED_Progress_Notification_txt.Text += "Failed.\n";
 
                             TED_Progress_Bar.Value += 1;
                         };
                         this.Dispatcher.BeginInvoke(DispatcherPriority.Send, TED_Notification2);
-                    }
-                    MessageBox.Show("And we are done!!!!\nThe High Speed!! AirDownload has landed. Thank you for Flying with us. Please Watch your Step.","Success!!Yay!!");
+                    }                    
+                    MessageBox.Show("And we are done!!!!\nThe High Speed!! AirDownload has landed. Thank you for Flying with us. Please Watch your Step.","Success!!Yay!!");                    
                 }
                 catch (Exception ex)
                 {
                     SimpleTEDDelegate TED_Termination = delegate()
                     {
-                        TED_Progress_Bar_lbl.Content = "Fatal Error Encountered. Download Aborted. Please try again.";
+                        TED_Progress_Notification_txt.Text += "Fatal Error Encountered. Download Aborted. Please try again.";
                     };
                     this.Dispatcher.BeginInvoke(DispatcherPriority.Send, TED_Termination);
-                    MessageBox.Show(ex.Message, Error_Text);
+                    MessageBox.Show(ex.Message, Constants.Error_Text);
                 }
                 finally
                 {
                     SimpleTEDDelegate TED_Termination = delegate()
                     {
-                        ChangeStateto(true);
+                        TED_Progress_Bar_lbl.Content = "";
+                        TED_Progress_Notification_txt.Text += "\n\nDownload Completed.";
+                        ChangeStateto(true);                        
                     };
                     this.Dispatcher.BeginInvoke(DispatcherPriority.Send, TED_Termination);
-                    TED_Videos_Count = 0;
-                    TED_Links.Clear();
-                    TED_Links.Columns.Clear();
+                    TED_Videos_Count = 0;                    
                     isDownload_Active = false;
                 }
             }
@@ -321,19 +376,78 @@ namespace TED_Downloader
 
         #region Small Utility Functions
 
+            private String GetProgressText(Double Value)
+            {
+                String MessageText = String.Empty;
+                                
+                if (0 <= Value && Value <= 10)
+                    MessageText = Constants.between0_10 ;
+                else if (10 < Value && Value <= 20)
+                    MessageText = Constants.between10_20;
+                else if (20 < Value && Value <= 30)
+                    MessageText = Constants.between20_30;
+                else if (30 < Value && Value <= 40)
+                    MessageText = Constants.between30_40;
+                else if (40 < Value && Value <= 50)
+                    MessageText = Constants.between40_50;
+                else if (50 < Value && Value <= 60)
+                    MessageText = Constants.between50_60;
+                else if (60 < Value && Value <= 70)
+                    MessageText = Constants.between60_70;
+                else if (70 < Value && Value <= 80)
+                    MessageText = Constants.between70_80;
+                else if (80 < Value && Value <= 90)
+                    MessageText = Constants.between80_90;
+                else if (90 < Value && Value <= 99)
+                    MessageText = Constants.between90_100;
+                return MessageText;
+            }
+
             private void InitialiseParameters()
             {
                 DownloadFolderPathvar = DownloadFolderpath.Text;
 
                 if ((bool)TED_VidQual_Low.IsChecked)
-                    Download_Quality = "Low";
+                    Download_Quality = Constants.Low;
                 if ((bool)TED_VidQual_Reg.IsChecked)
-                    Download_Quality = "Regular";
+                    Download_Quality = Constants.Regular;
                 if ((bool)TED_VidQual_High.IsChecked)
-                    Download_Quality = "High";
-                //Shutdown_System = (bool)TED_ShutDowncb.IsChecked;
+                    Download_Quality = Constants.High;
+            }
 
-                SetProxy();
+            private void DisplayCountLbl()
+            {
+                var TEDLinks_All_Count = TEDLinks_All == null ? 0 : TEDLinks_All.Count;
+                var TEDLinks_Selected_Count = TEDLinks_Selected == null ? 0 : TEDLinks_Selected.Count;
+                if(TED_Selected_Videos_Count_lbl !=null)
+                    TED_Selected_Videos_Count_lbl.Content = String.Format("Videos Selected : {0} of {1}", TEDLinks_Selected_Count, TEDLinks_All_Count);
+            }
+        
+            private void ExportLinks()
+            {
+                String TED_Details_File = DownloadFolderPathvar + "\\TED_Links_Exported_" + Download_Quality.ToString() + ".txt";
+                StreamWriter TED_SW = new StreamWriter(TED_Details_File);
+
+                TED_SW.BaseStream.Seek(0, SeekOrigin.End);
+
+                TED_SW.WriteLine("");                 
+                foreach (TED_DList item in TEDLinks_Selected)
+                    TED_SW.WriteLine(item.Download_Location);
+
+                TED_SW.Flush();
+                TED_SW.Close();
+            }
+
+            private ObservableCollection<TED_DList> GetRow(String Temp_Title)
+            {
+                ObservableCollection<TED_DList> filteredClients = null;
+                IEnumerable<TED_DList> qry = from c in TEDLinks_All
+                                             where c.Video_Title.ToUpper().Equals(Temp_Title.ToUpper())
+                                             orderby c.Video_Title
+                                             select c;
+
+                filteredClients = new ObservableCollection<TED_DList>(qry);
+                return filteredClients;
             }
 
             private String CreateProperName(String Old_Target_Path)
@@ -348,10 +462,16 @@ namespace TED_Downloader
             }
 
             private void SetProxy()
-            {
-                System.Net.WebProxy pry = new System.Net.WebProxy("148.87.67.174", 80);
-                pry.Credentials = CredentialCache.DefaultCredentials;
-                WebRequest.DefaultWebProxy = pry;
+            {                
+                WebProxy prxy;
+
+                if (IPPortValue == 0)
+                    prxy = new WebProxy(IPAddressValue.ToString());
+                else
+                    prxy = new WebProxy(IPAddressValue.ToString(), IPPortValue);
+
+                prxy.Credentials = CredentialCache.DefaultCredentials;
+                WebRequest.DefaultWebProxy = prxy;
             }
 
             private void ChangeStateto(bool State)
@@ -361,27 +481,27 @@ namespace TED_Downloader
                 TED_VidQual_High.IsEnabled = State;
             }
 
-            private void CreateTextFile(DataRow TED_Row, String TargetPath)
+            private void CreateTextFile(TED_DList TED_Row, String TargetPath)
             {
                 try
                 {
-                    String TED_Details_File = TargetPath + "\\" + CreateProperName(TED_Row["Video_Title"].ToString()) + ".txt";
+                    String TED_Details_File = TargetPath + "\\" + CreateProperName(TED_Row.Video_Title.ToString()) + ".txt";
                     StreamWriter TED_SW = new StreamWriter(TED_Details_File);
 
                     TED_SW.BaseStream.Seek(0, SeekOrigin.End);
-                    TED_SW.WriteLine("Video Title : " + TED_Row["Video_Title"].ToString());
-                    TED_SW.WriteLine("Video HomePage : " + TED_Row["Video_HomePage"].ToString());
-                    TED_SW.WriteLine("Date : " + TED_Row["Date"].ToString());
-                    TED_SW.WriteLine("Place : " + TED_Row["Place"].ToString());
-                    TED_SW.WriteLine("Duration : " + TED_Row["Duration"].ToString());
-                    TED_SW.WriteLine("Download Location : " + TED_Row["Download_Location"].ToString());
+                    TED_SW.WriteLine("Video Title : " + TED_Row.Video_Title.ToString());
+                    TED_SW.WriteLine("Video HomePage : " + TED_Row.Video_HomePage.ToString());
+                    TED_SW.WriteLine("Date : " + TED_Row.Date.ToString());
+                    TED_SW.WriteLine("Event Name : " + TED_Row.Event_Name.ToString());
+                    TED_SW.WriteLine("Duration : " + TED_Row.Duration.ToString());
+                    TED_SW.WriteLine("Download Location : " + TED_Row.Download_Location.ToString());
 
                     TED_SW.Flush();
                     TED_SW.Close();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, Error_Text);
+                    MessageBox.Show(ex.Message, Constants.Error_Text);
                 }
             }
 
@@ -389,7 +509,7 @@ namespace TED_Downloader
             {
                 try
                 {
-                    if (url.Equals(NotFound))
+                    if (url.Equals(Constants.NotFound))
                         return false;
 
                     if (File.Exists(FileName))
@@ -408,17 +528,6 @@ namespace TED_Downloader
                 Aboutbox = null;
             }
 
-        #endregion
-
-        #region Redundant Functions
-
-        private void WhenLoaded()
-        {
-            //Duration duration = new Duration(TimeSpan.FromSeconds(5));
-            //DoubleAnimation doubleanimation = new DoubleAnimation(200.0, duration);
-            //TED_Progress_Bar.BeginAnimation(ProgressBar.ValueProperty, doubleanimation);            
-        }
-
-        #endregion                
+        #endregion             
     }
 }
