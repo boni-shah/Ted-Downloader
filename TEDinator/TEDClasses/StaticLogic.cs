@@ -1,20 +1,25 @@
 ﻿using System;
-using System.Net;
-using System.IO;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Net;
+using System.Text;
 using System.Windows.Forms;
 
-namespace TED_Downloader
+namespace TEDinator.TEDClasses
 {
-    class StaticLogic
+    static class StaticLogic
     {
-        public static bool TED_Analysis(ObservableCollection<TED_DList> TEDLinks_All, String Download_Quality)
-        {                        
-            Exception InvalidTagException = new Exception(Constants.Exception_Error_Text);
+        public static ObservableCollection<TED_Video> TED_Analysis()
+        {
+            Exception InvalidTagException = new Exception(Constants.ExceptionErrormsg);
+            WebClient Analyser_WC = null;
+            MemoryStream stream = null;
+            StreamReader reader = null;
+            ObservableCollection<TED_Video> TEDLinks_All = null;
 
             try
             {
-                TEDLinks_All.Clear();
+                TEDLinks_All = new ObservableCollection<TED_Video>();
 
                 int start_pos = 0;
                 int end_pos = 0;
@@ -24,22 +29,24 @@ namespace TED_Downloader
                 String Video_Title = Constants.NotFound;
                 String Video_HomePage = Constants.NotFound;
                 String Duration = Constants.NotFound;
-                String Download_Location = Constants.NotFound;
+                String Download_Location_low = Constants.NotFound;
+                String Download_Location_med = Constants.NotFound;
+                String Download_Location_high = Constants.NotFound;
 
-                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(Constants.TED_DownloadPage_URL);
-                request.Method = WebRequestMethods.Http.Get;
-                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-                StreamReader reader = new StreamReader(response.GetResponseStream());
+                Analyser_WC = new WebClient();
+                Analyser_WC.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
+                byte[] byteArray = Encoding.Default.GetBytes(Analyser_WC.DownloadString(Constants.TED_Downloadpage_URL));
+                stream = new MemoryStream(byteArray);
+                reader = new StreamReader(stream);
+                
                 String text = reader.ReadLine();
-
                 while (text != null)
                 {
                     if (text.Contains("<table class=\"downloads notranslate\">"))
                     {
                         for (int i = 0; i <= 7; i++)
                             text = reader.ReadLine();
-
+                        
                         while (!text.Contains("</table>"))
                         {
                             if (!text.Contains("\t<tr>"))
@@ -70,9 +77,9 @@ namespace TED_Downloader
                             text = reader.ReadLine(); //this will read <td> Video Title  e.g. "\t\t\t<a href=\"/talks/todd_kuiken_a_prosthetic_arm_that_feels.html\">Todd Kuiken: A prosthetic arm that \"feels\"</a>\t\t</td>"
                             if (text.Contains("\t\t\t<a href=\""))
                             {
-                                start_pos = text.IndexOf("\t\t\t<a href=\"") + ("\t\t\t<a href=\"").Length;
+                                start_pos = text.IndexOf("\t\t\t<a href=\"/") + ("\t\t\t<a href=\"/").Length;
                                 end_pos = text.IndexOf("\">");
-                                Video_HomePage = Constants.TED_HomePage_URL + text.Substring(start_pos, end_pos - start_pos);
+                                Video_HomePage = Constants.TED_Homepage_URL + text.Substring(start_pos, end_pos - start_pos);
 
                                 start_pos = end_pos + 2;
                                 end_pos = text.IndexOf("</a>\t\t</td>");
@@ -94,24 +101,25 @@ namespace TED_Downloader
                             text = reader.ReadLine(); //this will read <td> download location  e.g. "\t\t<td><a href=\"http://download.ted.com/talks/ToddKuiken_2011G-light.mp4\">Low</a> | <a href=\"http://download.ted.com/talks/ToddKuiken_2011G.mp4\">Regular</a> | <a href=\"http://download.ted.com/talks/ToddKuiken_2011G-480p.mp4\">High</a></td>"
                             if (text.Contains("\t\t<td>"))
                             {
-                                if (text.Contains("<td></td>"))
-                                    Download_Location = Constants.NotFound;
+                                if (text.Contains("<td></td>") || !text.Contains("Low") || !text.Contains("Regular") || !text.Contains("High"))
+                                {
+                                    Download_Location_low = Constants.NotFound;
+                                    Download_Location_med = Constants.NotFound;
+                                    Download_Location_high = Constants.NotFound;
+                                }
                                 else
                                 {
                                     start_pos = text.IndexOf("\t\t<td><a href=\"") + ("\t\t<td><a href=\"").Length;
                                     end_pos = text.IndexOf("\">Low</a> | <a href=\"");
-                                    if (Download_Quality.Equals(Constants.Low))
-                                        Download_Location = text.Substring(start_pos, end_pos - start_pos);
+                                    Download_Location_low = text.Substring(start_pos, end_pos - start_pos);
 
                                     start_pos = end_pos + ("\">Low</a> | <a href=\"").Length;
                                     end_pos = text.IndexOf("\">Regular</a> | <a href=\"");
-                                    if (Download_Quality.Equals(Constants.Regular))
-                                        Download_Location = text.Substring(start_pos, end_pos - start_pos);
+                                    Download_Location_med = text.Substring(start_pos, end_pos - start_pos);
 
                                     start_pos = end_pos + ("\">Regular</a> | <a href=\"").Length;
                                     end_pos = text.IndexOf("\">High</a></td>");
-                                    if (Download_Quality.Equals(Constants.High))
-                                        Download_Location = text.Substring(start_pos, end_pos - start_pos);
+                                    Download_Location_high = text.Substring(start_pos, end_pos - start_pos);
                                 }
                             }
                             else
@@ -120,27 +128,33 @@ namespace TED_Downloader
                             text = reader.ReadLine(); //this will read </tr>  e.g. "\t</tr>"
                             if (!text.Contains("\t</tr>"))
                                 throw InvalidTagException;
-                            TEDLinks_All.Add(new TED_DList { Date= Date, Video_HomePage= Video_HomePage, Duration= Duration, Download_Location= Download_Location, Video_Title = Video_Title, Event_Name = Event_Name, Status = false });
-                            //TED_Links.Rows.Add(Date, Event_Name, Video_Title, Video_HomePage, Duration, Download_Location);                           
+                            TEDLinks_All.Add(new TED_Video { Date = Date, Video_Homepage = Video_HomePage, Duration = Duration, Download_Location_low = Download_Location_low, Download_Location_med = Download_Location_med, Download_Location_high = Download_Location_high, Video_Title = Video_Title, Event_Name = Event_Name, Status = false });
+                            //TED_Links.Rows.Add(Date, Event_Name, Video_Title, Video_HomePage, Duration, Download_Location); 
 
                             text = reader.ReadLine(); //this will read <tr> e.g."\t<tr>" and try to catch the </table> tag.
                         }
                     }
                     text = reader.ReadLine();
                 }
-                response.Close();
-                return true;
+
+                if (TEDLinks_All.Count == 0)
+                    MessageBox.Show(Constants.SiteErrormsg + "\n\n" + Constants.ErrorContactmsg, Constants.ErrormsgHeader);
+
+                Analyser_WC.Dispose();
+                stream.Dispose();
+                reader.Dispose();
             }
             catch (System.Net.WebException Wex)
             {
-                throw Wex;                
+                MessageBox.Show(Wex.Message, Constants.ErrormsgHeader);
+                return new ObservableCollection<TED_Video>();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show(ex.Message,Constants.Error_Text);
-                return false;
+                MessageBox.Show(Constants.ErrorContactmsg, Constants.ErrormsgHeader);
+                return new ObservableCollection<TED_Video>();
             }
+            return TEDLinks_All;
         }
-
     }
 }
