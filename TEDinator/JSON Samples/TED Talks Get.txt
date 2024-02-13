@@ -1,0 +1,271 @@
+﻿https://api.ted.com/v1/talks.json?api-key=nkhkpxs6aspa5c73rnmc2vf7
+
+
+
+{
+    "talks": [{
+        "talk": {
+            "id": 1,
+            "event_id": 3,
+            "name": "Al Gore: Averting the climate crisis",
+            "description": "With the same humor and humanity he exuded in <em>An Inconvenient Truth,<\/em> Al Gore spells out 15 ways that individuals can address climate change immediately, from buying a hybrid to inventing a new, hotter \"brand name\" for global warming.",
+            "slug": "al_gore_on_averting_climate_crisis",
+            "native_language_code": "en",
+            "published_at": "2006-06-27 00:11:00",
+            "recorded_at": "2006-02-25 00:00:00",
+            "updated_at": "2015-07-15 20:57:51",
+            "released_at": "2015-07-15 20:57:51"
+        }
+    }, {
+        "talk": {
+            "id": 2,
+            "event_id": 3,
+            "name": "Amy Smith: Simple designs to save a life",
+            "description": "Fumes from indoor cooking fires kill more than 2 million children a year in the developing world. MIT engineer Amy Smith details an exciting but simple solution: a tool for turning farm waste into clean-burning charcoal.",
+            "slug": "amy_smith_shares_simple_lifesaving_design",
+            "native_language_code": "en",
+            "published_at": "2006-08-15 00:11:00",
+            "recorded_at": "2006-02-24 00:00:00",
+            "updated_at": "2015-08-18 20:28:54",
+            "released_at": "2015-08-18 20:28:54"
+        }
+    }, {
+        "talk": {
+            "id": 3,
+            "event_id": 8,
+            "name": "Ashraf Ghani: How to rebuild a broken state",
+            "description": "Ashraf Ghani's passionate and powerful 10-minute talk, emphasizing the necessity of both economic investment and design ingenuity to rebuild broken states, is followed by a conversation with TED curator Chris Anderson on the future of Afghanistan.",
+            "slug": "ashraf_ghani_on_rebuilding_broken_states",
+            "native_language_code": "en",
+            "published_at": "2006-10-18 00:11:00",
+            "recorded_at": "2005-07-12 00:00:00",
+            "updated_at": "2015-08-15 17:27:05",
+            "released_at": "2015-07-22 19:37:08"
+        }
+    }, {
+        "talk": {
+            "id": 4,
+            "event_id": 3,
+            "name": "Burt Rutan: The real future of space exploration",
+            "description": "In this passionate talk, legendary spacecraft designer Burt Rutan lambasts the US government-funded space program for stagnating and asks entrepreneurs to pick up where NASA has left off. ",
+            "slug": "burt_rutan_sees_the_future_of_space",
+            "native_language_code": "en",
+            "published_at": "2006-10-25 00:11:00",
+            "recorded_at": "2006-02-24 00:00:00",
+            "updated_at": "2015-07-22 20:12:23",
+            "released_at": "2015-07-22 20:12:23"
+        }
+    }, {
+        "talk": {
+            "id": 5,
+            "event_id": 7,
+            "name": "Chris Bangle: Great cars are great art",
+            "description": "American designer Chris Bangle explains his philosophy that car design is an art form in its own right, with an entertaining -- and ultimately moving -- account of the BMW Group's Deep Blue project, intended to create the SUV of the future.",
+            "slug": "chris_bangle_says_great_cars_are_art",
+            "native_language_code": "en",
+            "published_at": "2007-04-05 00:11:00",
+            "recorded_at": "2002-02-02 00:00:00",
+            "updated_at": "2015-07-10 17:20:38",
+            "released_at": "2014-01-15 23:10:03"
+        }
+    }, {
+        "talk": {
+            "id": 6,
+            "event_id": 8,
+            "name": "Craig Venter: Sampling the ocean's DNA",
+            "description": "Genomics pioneer Craig Venter takes a break from his epic round-the-world expedition to talk about the millions of genes his team has discovered so far in its quest to map the ocean\u2019s biodiversity.",
+            "slug": "craig_venter_on_dna_and_the_sea",
+            "native_language_code": "en",
+            "published_at": "2007-04-05 00:11:00",
+            "recorded_at": "2005-02-24 00:00:00",
+            "updated_at": "2014-10-14 13:56:01",
+            "released_at": "2014-01-16 00:22:59"
+        }
+    }, {
+        "talk": {
+            "id": 7,
+            "event_id": 3,
+            "name": "David Pogue: Simplicity sells",
+            "description": "New York Times columnist David Pogue takes aim at technology\u2019s worst interface-design offenders, and provides encouraging examples of products that get it right. To funny things up, he bursts into song. ",
+            "slug": "david_pogue_says_simplicity_sells",
+            "native_language_code": "en",
+            "published_at": "2006-06-27 00:11:00",
+            "recorded_at": "2006-02-24 00:00:00",
+            "updated_at": "2015-06-12 19:35:00",
+            "released_at": "2015-06-12 19:35:00"
+        }
+    }, {
+        "talk": {
+            "id": 8,
+            "event_id": 7,
+            "name": "David Rockwell: A memorial at Ground Zero",
+            "description": "In this emotionally charged conversation with journalist Kurt Andersen, designer David Rockwell discusses the process of building a viewing platform at Ground Zero shortly after 9\/11.",
+            "slug": "david_rockwell_builds_at_ground_zero",
+            "native_language_code": "en",
+            "published_at": "2007-06-12 05:11:00",
+            "recorded_at": "2002-02-02 00:00:00",
+            "updated_at": "2014-07-03 20:42:24",
+            "released_at": "2014-01-21 20:18:33"
+        }
+    }, {
+        "talk": {
+            "id": 9,
+            "event_id": 7,
+            "name": "Dean Kamen: To invent is to give",
+            "description": "Inventor Dean Kamen lays out his argument for the Segway and offers a peek into his next big ideas (portable energy and water purification for developing countries). ",
+            "slug": "dean_kamen_on_inventing_and_giving",
+            "native_language_code": "en",
+            "published_at": "2007-04-05 00:11:00",
+            "recorded_at": "2002-02-02 00:00:00",
+            "updated_at": "2015-02-14 15:28:40",
+            "released_at": "2014-01-22 17:03:18"
+        }
+    }, {
+        "talk": {
+            "id": 10,
+            "event_id": 3,
+            "name": "Dean Ornish: The killer American diet that's sweeping the planet",
+            "description": "Forget the latest disease in the news: Cardiovascular disease kills more people than everything else combined -- and it\u2019s mostly preventable. Dr. Dean Ornish explains how changing our eating habits can save lives.",
+            "slug": "dean_ornish_on_the_world_s_killer_diet",
+            "native_language_code": "en",
+            "published_at": "2006-12-14 00:11:00",
+            "recorded_at": "2006-02-23 00:00:00",
+            "updated_at": "2015-08-30 09:10:36",
+            "released_at": "2014-09-27 14:27:49"
+        }
+    }, {
+        "talk": {
+            "id": 11,
+            "event_id": 7,
+            "name": "Jane Goodall: What separates us from chimpanzees?",
+            "description": "Jane Goodall hasn't found the missing link, but she's come closer than nearly anyone else. The primatologist says the only real difference between humans and chimps is our sophisticated language. She urges us to start using it to change the world.",
+            "slug": "jane_goodall_on_what_separates_us_from_the_apes",
+            "native_language_code": "en",
+            "published_at": "2007-04-05 00:11:00",
+            "recorded_at": "2002-03-01 00:00:00",
+            "updated_at": "2015-08-17 20:10:10",
+            "released_at": "2015-08-17 20:10:10"
+        }
+    }, {
+        "talk": {
+            "id": 12,
+            "event_id": 4,
+            "name": "Eva Vertes: Meet the future of cancer research",
+            "description": "Eva Vertes -- only 19 when she gave this talk -- discusses her journey toward studying medicine and her drive to understand the roots of cancer and Alzheimer\u2019s.",
+            "slug": "eva_vertes_looks_to_the_future_of_medicine",
+            "native_language_code": "en",
+            "published_at": "2006-10-02 00:11:00",
+            "recorded_at": "2005-02-26 00:00:00",
+            "updated_at": "2015-07-08 21:59:26",
+            "released_at": "2015-07-08 21:59:26"
+        }
+    }, {
+        "talk": {
+            "id": 13,
+            "event_id": 7,
+            "name": "Frank Gehry: A master architect asks, Now what?",
+            "description": "In a wildly entertaining discussion with Richard Saul Wurman, architect Frank Gehry gives TEDsters his take on the power of failure, his recent buildings, and the all-important \u201cThen what?\u201d factor. ",
+            "slug": "frank_gehry_asks_then_what",
+            "native_language_code": "en",
+            "published_at": "2008-01-17 00:11:00",
+            "recorded_at": "2002-02-28 00:00:00",
+            "updated_at": "2015-07-15 00:08:42",
+            "released_at": "2014-12-22 18:28:00"
+        }
+    }, {
+        "talk": {
+            "id": 14,
+            "event_id": 5,
+            "name": "Golan Levin: Software (as) art",
+            "description": "Engineer and artist Golan Levin pushes the boundaries of what\u2019s possible with audiovisuals and technology. In an amazing TED display, he shows two programs he wrote to perform his original compositions.",
+            "slug": "golan_levin_on_software_as_art",
+            "native_language_code": "en",
+            "published_at": "2007-04-05 00:11:00",
+            "recorded_at": "2004-02-27 00:00:00",
+            "updated_at": "2015-08-14 20:38:12",
+            "released_at": "2015-08-14 20:38:12"
+        }
+    }, {
+        "talk": {
+            "id": 16,
+            "event_id": 3,
+            "name": "Helen Fisher: Why we love, why we cheat",
+            "description": "Anthropologist Helen Fisher takes on a tricky topic \u2013 love \u2013 and explains its evolution, its biochemical foundations and its social importance. She closes with a warning about the potential disaster inherent in antidepressant abuse.",
+            "slug": "helen_fisher_tells_us_why_we_love_cheat",
+            "native_language_code": "en",
+            "published_at": "2006-09-06 00:11:00",
+            "recorded_at": "2006-02-24 00:00:00",
+            "updated_at": "2015-06-15 19:33:41",
+            "released_at": "2015-06-15 19:33:41"
+        }
+    }, {
+        "talk": {
+            "id": 18,
+            "event_id": 4,
+            "name": "Janine Benyus: Biomimicry's surprising lessons from nature's engineers",
+            "description": "In this inspiring talk about recent developments in biomimicry, Janine Benyus provides heartening examples of ways in which nature is already influencing the products and systems we build.",
+            "slug": "janine_benyus_shares_nature_s_designs",
+            "native_language_code": "en",
+            "published_at": "2007-04-05 00:11:00",
+            "recorded_at": "2005-02-24 00:00:00",
+            "updated_at": "2014-11-05 23:29:48",
+            "released_at": "2014-11-05 23:29:48"
+        }
+    }, {
+        "talk": {
+            "id": 19,
+            "event_id": 4,
+            "name": "Kevin Kelly: How technology evolves",
+            "description": "Tech enthusiast Kevin Kelly asks \"What does technology want?\" and discovers that its movement toward ubiquity and complexity is much like the evolution of life.",
+            "slug": "kevin_kelly_on_how_technology_evolves",
+            "native_language_code": "en",
+            "published_at": "2006-11-14 00:11:00",
+            "recorded_at": "2005-02-24 00:00:00",
+            "updated_at": "2015-04-14 07:40:11",
+            "released_at": "2014-12-22 19:24:56"
+        }
+    }, {
+        "talk": {
+            "id": 20,
+            "event_id": 5,
+            "name": "Malcolm Gladwell: Choice, happiness and spaghetti sauce",
+            "description": "\"Tipping Point\" author Malcolm Gladwell gets inside the food industry's pursuit of the perfect spaghetti sauce -- and makes a larger argument about the nature of choice and happiness.",
+            "slug": "malcolm_gladwell_on_spaghetti_sauce",
+            "native_language_code": "en",
+            "published_at": "2006-09-19 00:11:00",
+            "recorded_at": "2004-02-26 00:00:00",
+            "updated_at": "2015-08-20 14:57:49",
+            "released_at": "2015-08-20 14:57:49"
+        }
+    }, {
+        "talk": {
+            "id": 21,
+            "event_id": 3,
+            "name": "Mena Trott: Meet the founder of the blog revolution",
+            "description": "The founding mother of the blog revolution, Movable Type's Mena Trott, talks about the early days of blogging, when she realized that giving regular people the power to share our lives online is the key to building a friendlier, more connected world.",
+            "slug": "mena_trott_tours_her_blog_world",
+            "native_language_code": "en",
+            "published_at": "2006-08-25 00:11:00",
+            "recorded_at": "2006-02-23 00:00:00",
+            "updated_at": "2015-06-23 16:07:35",
+            "released_at": "2015-06-23 16:07:35"
+        }
+    }, {
+        "talk": {
+            "id": 22,
+            "event_id": 3,
+            "name": "Michael Shermer: Why people believe weird things",
+            "description": "Why do people see the Virgin Mary on a cheese sandwich or hear demonic lyrics in \"Stairway to Heaven\"? Using video and music, skeptic Michael Shermer shows how we convince ourselves to believe -- and overlook the facts.",
+            "slug": "michael_shermer_on_believing_strange_things",
+            "native_language_code": "en",
+            "published_at": "2006-11-08 00:11:00",
+            "recorded_at": "2006-02-23 00:00:00",
+            "updated_at": "2015-08-18 07:19:25",
+            "released_at": "2015-06-23 17:58:28"
+        }
+    }],
+    "counts": {
+        "this": 20,
+        "total": 2048
+    }
+}

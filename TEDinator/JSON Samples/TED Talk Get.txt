@@ -1,0 +1,383 @@
+﻿https://api.ted.com/v1/talks/1.json?api-key=nkhkpxs6aspa5c73rnmc2vf7
+
+
+
+{
+    "talk": {
+        "id": 1,
+        "name": "Al Gore: Averting the climate crisis",
+        "description": "With the same humor and humanity he exuded in <em>An Inconvenient Truth,<\/em> Al Gore spells out 15 ways that individuals can address climate change immediately, from buying a hybrid to inventing a new, hotter \"brand name\" for global warming.",
+        "slug": "al_gore_on_averting_climate_crisis",
+        "recorded_at": "2006-02-25 00:00:00",
+        "published_at": "2006-06-27 00:11:00",
+        "updated_at": "2015-07-15 20:57:51",
+        "viewed_count": 2907124,
+        "emailed_count": 720,
+        "commented_count": 247,
+        "event": {
+            "id": 3,
+            "name": "TED2006"
+        },
+        "images": [{
+            "image": {
+                "size": "113x85",
+                "url": "http:\/\/tedcdnpe-a.akamaihd.net\/images\/ted\/72eeeccf861a0bd844f1e31e07ba1f1ca346ed0a_113x85.jpg"
+            }
+        }, {
+            "image": {
+                "size": "240x180",
+                "url": "http:\/\/tedcdnpe-a.akamaihd.net\/images\/ted\/72eeeccf861a0bd844f1e31e07ba1f1ca346ed0a_240x180.jpg"
+            }
+        }, {
+            "image": {
+                "size": "615x461",
+                "url": "http:\/\/tedcdnpe-a.akamaihd.net\/images\/ted\/72eeeccf861a0bd844f1e31e07ba1f1ca346ed0a_615x461.jpg"
+            }
+        }, {
+            "image": {
+                "size": "2400x1800",
+                "url": "http:\/\/tedcdnpe-a.akamaihd.net\/images\/ted\/72eeeccf861a0bd844f1e31e07ba1f1ca346ed0a_2400x1800.jpg"
+            }
+        }],
+        "image_16x9": "http:\/\/tedcdnpe-a.akamaihd.net\/images\/ted\/a2194b4ef5170bd9e9b086c5053e09cdf3545960_2880x1620.jpg",
+        "media": {
+            "internal": {
+                "64k": {
+                    "uri": "http:\/\/download.ted.com\/talks\/AlGore_2006-64k.mp4?apikey=753171bb834e36eb6626065ac62a8c109777776d",
+                    "filesize_bytes": 7985730,
+                    "mime_type": "video\/mp4"
+                },
+                "180k": {
+                    "uri": "http:\/\/download.ted.com\/talks\/AlGore_2006-180k.mp4?apikey=753171bb834e36eb6626065ac62a8c109777776d",
+                    "filesize_bytes": 22151007,
+                    "mime_type": "video\/mp4"
+                },
+                "320k": {
+                    "uri": "http:\/\/download.ted.com\/talks\/AlGore_2006-320k.mp4?apikey=753171bb834e36eb6626065ac62a8c109777776d",
+                    "filesize_bytes": 39188703,
+                    "mime_type": "video\/mp4"
+                },
+                "450k": {
+                    "uri": "http:\/\/download.ted.com\/talks\/AlGore_2006-450k.mp4?apikey=753171bb834e36eb6626065ac62a8c109777776d",
+                    "filesize_bytes": 55413615,
+                    "mime_type": "video\/mp4"
+                },
+                "600k": {
+                    "uri": "http:\/\/download.ted.com\/talks\/AlGore_2006-600k.mp4?apikey=753171bb834e36eb6626065ac62a8c109777776d",
+                    "filesize_bytes": 73745270,
+                    "mime_type": "video\/mp4"
+                },
+                "950k": {
+                    "uri": "http:\/\/download.ted.com\/talks\/AlGore_2006-950k.mp4?apikey=753171bb834e36eb6626065ac62a8c109777776d",
+                    "filesize_bytes": 112909397,
+                    "mime_type": "video\/mp4"
+                },
+                "podcast-light": {
+                    "uri": "http:\/\/download.ted.com\/talks\/AlGore_2006-light.mp4?apikey=753171bb834e36eb6626065ac62a8c109777776d",
+                    "filesize_bytes": 8367741,
+                    "mime_type": "video\/mp4"
+                },
+                "podcast-regular": {
+                    "uri": "http:\/\/download.ted.com\/talks\/AlGore_2006.mp4?apikey=753171bb834e36eb6626065ac62a8c109777776d",
+                    "filesize_bytes": 55536497,
+                    "mime_type": "video\/mp4"
+                },
+                "podcast-high": {
+                    "uri": "http:\/\/download.ted.com\/talks\/AlGore_2006-480p.mp4?apikey=753171bb834e36eb6626065ac62a8c109777776d",
+                    "filesize_bytes": 113824173,
+                    "mime_type": "video\/mp4"
+                },
+                "audio-podcast": {
+                    "uri": "http:\/\/download.ted.com\/talks\/AlGore_2006.mp3?apikey=753171bb834e36eb6626065ac62a8c109777776d",
+                    "filesize_bytes": 6915017,
+                    "mime_type": "audio\/mp3"
+                },
+                "podcast-low-en": {
+                    "uri": "http:\/\/download.ted.com\/talks\/AlGore_2006-low-en.mp4?apikey=753171bb834e36eb6626065ac62a8c109777776d",
+                    "filesize_bytes": 22600253,
+                    "mime_type": "video\/mp4"
+                },
+                "podcast-high-en": {
+                    "uri": "http:\/\/download.ted.com\/talks\/AlGore_2006-480p-en.mp4?apikey=753171bb834e36eb6626065ac62a8c109777776d",
+                    "filesize_bytes": 113896279,
+                    "mime_type": "video\/mp4"
+                }
+            }
+        },
+        "languages": {
+            "sq": {
+                "name": "Albanian"
+            },
+            "ar": {
+                "name": "Arabic"
+            },
+            "bg": {
+                "name": "Bulgarian"
+            },
+            "zh-cn": {
+                "name": "Chinese, Simplified"
+            },
+            "zh-tw": {
+                "name": "Chinese, Traditional"
+            },
+            "hr": {
+                "name": "Croatian"
+            },
+            "cs": {
+                "name": "Czech"
+            },
+            "nl": {
+                "name": "Dutch"
+            },
+            "en": {
+                "name": "English",
+                "native": true
+            },
+            "fr": {
+                "name": "French"
+            },
+            "fr-ca": {
+                "name": "French (Canada)"
+            },
+            "gl": {
+                "name": "Galician"
+            },
+            "de": {
+                "name": "German"
+            },
+            "el": {
+                "name": "Greek"
+            },
+            "gu": {
+                "name": "Gujarati"
+            },
+            "he": {
+                "name": "Hebrew"
+            },
+            "hi": {
+                "name": "Hindi"
+            },
+            "hu": {
+                "name": "Hungarian"
+            },
+            "id": {
+                "name": "Indonesian"
+            },
+            "it": {
+                "name": "Italian"
+            },
+            "ja": {
+                "name": "Japanese"
+            },
+            "ko": {
+                "name": "Korean"
+            },
+            "lv": {
+                "name": "Latvian"
+            },
+            "lt": {
+                "name": "Lithuanian"
+            },
+            "rup": {
+                "name": "Macedo"
+            },
+            "mk": {
+                "name": "Macedonian"
+            },
+            "fa": {
+                "name": "Persian"
+            },
+            "pl": {
+                "name": "Polish"
+            },
+            "pt": {
+                "name": "Portuguese"
+            },
+            "pt-br": {
+                "name": "Portuguese, Brazilian"
+            },
+            "ro": {
+                "name": "Romanian"
+            },
+            "ru": {
+                "name": "Russian"
+            },
+            "sr": {
+                "name": "Serbian"
+            },
+            "sk": {
+                "name": "Slovak"
+            },
+            "sl": {
+                "name": "Slovenian"
+            },
+            "es": {
+                "name": "Spanish"
+            },
+            "sw": {
+                "name": "Swahili"
+            },
+            "sv": {
+                "name": "Swedish"
+            },
+            "tl": {
+                "name": "Tagalog"
+            },
+            "th": {
+                "name": "Thai"
+            },
+            "tr": {
+                "name": "Turkish"
+            },
+            "uk": {
+                "name": "Ukrainian"
+            },
+            "ur": {
+                "name": "Urdu"
+            }
+        },
+        "tags": [{
+            "tag": "alternative energy"
+        }, {
+            "tag": "cars"
+        }, {
+            "tag": "climate change"
+        }, {
+            "tag": "culture"
+        }, {
+            "tag": "environment"
+        }, {
+            "tag": "global issues"
+        }, {
+            "tag": "politics"
+        }, {
+            "tag": "science"
+        }, {
+            "tag": "sustainability"
+        }, {
+            "tag": "technology"
+        }],
+        "themes": [{
+            "theme": {
+                "id": 7,
+                "name": "Presentation Innovation"
+            }
+        }, {
+            "theme": {
+                "id": 15,
+                "name": "A Greener Future?"
+            }
+        }, {
+            "theme": {
+                "id": 23,
+                "name": "Bold Predictions, Stern Warnings"
+            }
+        }, {
+            "theme": {
+                "id": 25,
+                "name": "Design That Matters"
+            }
+        }, {
+            "theme": {
+                "id": 28,
+                "name": "Not Business as Usual"
+            }
+        }, {
+            "theme": {
+                "id": 30,
+                "name": "Technology, History and Destiny"
+            }
+        }],
+        "speakers": [{
+            "speaker": {
+                "id": 2,
+                "name": "Al Gore"
+            }
+        }],
+        "ratings": [{
+            "rating": {
+                "id": 7,
+                "name": "Funny",
+                "count": 469
+            }
+        }, {
+            "rating": {
+                "id": 3,
+                "name": "Courageous",
+                "count": 128
+            }
+        }, {
+            "rating": {
+                "id": 2,
+                "name": "Confusing",
+                "count": 52
+            }
+        }, {
+            "rating": {
+                "id": 1,
+                "name": "Beautiful",
+                "count": 50
+            }
+        }, {
+            "rating": {
+                "id": 21,
+                "name": "Unconvincing",
+                "count": 218
+            }
+        }, {
+            "rating": {
+                "id": 11,
+                "name": "Longwinded",
+                "count": 96
+            }
+        }, {
+            "rating": {
+                "id": 8,
+                "name": "Informative",
+                "count": 394
+            }
+        }, {
+            "rating": {
+                "id": 10,
+                "name": "Inspiring",
+                "count": 361
+            }
+        }, {
+            "rating": {
+                "id": 22,
+                "name": "Fascinating",
+                "count": 101
+            }
+        }, {
+            "rating": {
+                "id": 9,
+                "name": "Ingenious",
+                "count": 50
+            }
+        }, {
+            "rating": {
+                "id": 24,
+                "name": "Persuasive",
+                "count": 239
+            }
+        }, {
+            "rating": {
+                "id": 23,
+                "name": "Jaw-dropping",
+                "count": 88
+            }
+        }, {
+            "rating": {
+                "id": 26,
+                "name": "Obnoxious",
+                "count": 119
+            }
+        }, {
+            "rating": {
+                "id": 25,
+                "name": "OK",
+                "count": 176
+            }
+        }]
+    }
+}

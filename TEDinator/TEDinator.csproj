@@ -16,6 +16,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -28,7 +29,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -75,6 +75,11 @@
     <OutputPath>bin\x64\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dll\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
@@ -108,6 +113,8 @@
     <Compile Include="TEDClasses\ApplicationSettings.cs" />
     <Compile Include="TEDClasses\Constants.cs" />
     <Compile Include="TEDClasses\Enums.cs" />
+    <Compile Include="TEDClasses\RevisedStaticLogic.cs" />
+    <Compile Include="TEDClasses\Revised_TED_Video.cs" />
     <Compile Include="TEDClasses\StaticLogic.cs" />
     <Compile Include="TEDClasses\TED_Video.cs" />
     <Page Include="About.xaml">
@@ -154,6 +161,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -193,6 +201,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\settings.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="JSON Samples\TED Talks Get.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="JSON Samples\TED Events Get.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="JSON Samples\TED Languages Get.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="JSON Samples\TED Talk Get.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="dll\Newtonsoft.Json.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

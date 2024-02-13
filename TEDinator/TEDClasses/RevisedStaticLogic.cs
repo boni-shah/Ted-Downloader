@@ -1,17 +1,22 @@
-﻿using System;
+﻿using System.Security.Cryptography.X509Certificates;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Windows.Forms;
-using System.Linq;
 
 namespace TEDinator.TEDClasses
 {
-    static class StaticLogic
+    static class RevisedStaticLogic
     {
-        static String Totalstr = "\tShowing <span class=\"notranslate\">1 - 100</span> of  <span class=\"notranslate\">";
+        static string Totalstr = "\tShowing <span class=\"notranslate\">1 - 100</span> of  <span class=\"notranslate\">";
         static int TotalReqdCount = 1;
+        public const int ERROR_THRESHOLD = 5;
 
         private static int ReturnTotalCount(string text)
         {
@@ -196,6 +201,194 @@ namespace TEDinator.TEDClasses
                 return new ObservableCollection<TED_Video>();
             }
             return TEDLinks_All;
+        }
+
+        public static ObservableCollection<TED_Talk_Display> TED_Analyse_Talks(bool logEverything, ref BackgroundWorker TED_Analyser_Worker)
+        {
+            var totalTalksCount = 0;
+            var currentCount = -1;
+            var lastCurrentCount = 0;
+            var errorCount = 0;
+
+            var TED_Events = TED_Get_All_Events(logEverything);
+            //File.WriteAllLines("EventList.txt", TED_Events.Select(x=>x.Name));   --- To print the list of events
+            ObservableCollection<TED_Talk_Display> TEDLinks_All = new ObservableCollection<TED_Talk_Display>();
+
+            //StringBuilder sb = new StringBuilder();
+
+            using (WebClient client = new WebClient())
+            {
+                var talksInResponseCount = 0;
+
+                while (((currentCount + 1) <= totalTalksCount) && (lastCurrentCount != currentCount))
+                {
+                    try
+                    {
+                        var Get_All_Talks_URL = string.Format(Constants.TED_API_Get_All_Talks_Parametrised_URL, Constants.API_Key, Constants.Search_Limit, (currentCount + 1));
+                        var response = client.DownloadString(Get_All_Talks_URL);
+
+                        JObject joResponse = JObject.Parse(response);
+
+                        int.TryParse(joResponse["counts"]["total"].ToString(), out totalTalksCount);
+                        int.TryParse(joResponse["counts"]["this"].ToString(), out talksInResponseCount);
+
+                        var talksJson = joResponse["talks"];
+                        for (var i = 0; i < talksInResponseCount; i++)
+                        {
+                            var talk = talksJson[i]["talk"];
+
+                            var date = new DateTime();
+                            DateTime.TryParse(talk["recorded_at"].ToString(), out date);
+                            var event_id = talk["event_id"].ToString();
+                            var event_name = TED_Events.SingleOrDefault(x => x.Id.Equals(event_id)).Name;
+
+                            TEDLinks_All.Add(new TED_Talk_Display
+                            {
+                                Id = talk["id"].ToString(),
+                                Title = talk["name"].ToString(),
+                                Description = talk["description"].ToString(),
+                                Date = date != DateTime.MinValue ? date.Date.ToString("MMM dd, yyyy") : "N/A",
+                                //Date = talk["recorded_at"].ToString().Split(' ')[0],
+                                Event_Id = event_id,
+                                Event_Name = event_name,
+                                Video_Homepage = ""
+                            });
+                            //sb.Append(string.Format("Id: {0} \nName: {1}", talk["id"].ToString(), talk["name"].ToString()));
+                        }
+
+                        lastCurrentCount = currentCount;
+                        currentCount += talksInResponseCount;
+
+                        try
+                        {
+                            var percerntage = (int) (0.5f + ((100f*currentCount)/totalTalksCount));
+                            TED_Analyser_Worker.ReportProgress(percerntage);
+                        }
+                        catch (Exception e)
+                        {
+                            //sb.Append("This was a big mistake - " + e.Message);
+                        }
+
+                        //sb.Append(string.Format("\n\nTotal Count: {0} Current Count: {1} talksInResponseCount : {2}\n\n", totalTalksCount, currentCount, talksInResponseCount));
+                    }
+                    catch (Exception e)
+                    {
+                        errorCount++;
+                        //sb.Append("This was a big mistake - " + e.Message);
+
+                        if (errorCount >= ERROR_THRESHOLD)
+                            break;
+                    }
+                }
+
+                //File.AppendAllText("log.txt", sb.ToString());
+                //sb.Clear();
+            }
+
+            return TEDLinks_All;
+
+        }
+
+        public static List<TED_Event> TED_Get_All_Events(bool logEverything)
+        {
+            var totalEventsCount = 0;
+            var currentCount = -1;
+            var lastCurrentCount = 0;
+            var errorCount = 0;
+
+            var TEDEvents_All = new List<TED_Event>();
+
+            StringBuilder sb = new StringBuilder();
+
+            using (WebClient client = new WebClient())
+            {
+                var eventsInResponseCount = 0;
+
+                while (((currentCount + 1) <= totalEventsCount) && (lastCurrentCount != currentCount))
+                {
+                    try
+                    {
+                        var Get_All_Talks_URL = string.Format(Constants.TED_API_Get_All_Events_Parametrised_URL, Constants.API_Key, Constants.Search_Limit, (currentCount + 1));
+                        var response = client.DownloadString(Get_All_Talks_URL);
+
+                        JObject joResponse = JObject.Parse(response);
+
+                        int.TryParse(joResponse["counts"]["total"].ToString(), out totalEventsCount);
+                        int.TryParse(joResponse["counts"]["this"].ToString(), out eventsInResponseCount);
+
+                        var eventsJson = joResponse["events"];
+                        for (var i = 0; i < eventsInResponseCount; i++)
+                        {
+                            var ted_Event = eventsJson[i]["event"];
+
+                            //var date = new DateTime();
+                            //DateTime.TryParse(ted_Event["recorded_at"].ToString(), out date);
+
+                            TEDEvents_All.Add(new TED_Event
+                            {
+                                Id = ted_Event["id"].ToString(),
+                                Name = ted_Event["name"].ToString(),
+                                Description = ted_Event["description"].ToString(),
+                                //StartDate = date != DateTime.MinValue ? date.Date.ToString() : "N/A"
+                                StartDate = ted_Event["starts_at"].ToString().Split(' ')[0]
+                            });
+                            sb.Append(string.Format("Id: {0} \nName: {1}", ted_Event["id"].ToString(), ted_Event["name"].ToString()));
+                        }
+
+                        lastCurrentCount = currentCount;
+                        currentCount += eventsInResponseCount;
+
+
+                        sb.Append(string.Format("\n\nTotal Count: {0} Current Count: {1} eventsInResponseCount : {2}\n\n", totalEventsCount, currentCount, eventsInResponseCount));
+                    }
+                    catch (Exception e)
+                    {
+                        errorCount++;
+                        sb.Append("This was a big mistake - " + e.Message);
+
+                        if (errorCount >= ERROR_THRESHOLD)
+                            break;
+                    }
+                }
+
+                //File.AppendAllText("log.txt", sb.ToString());
+                sb.Clear();
+            }
+
+            return TEDEvents_All;
+
+        }
+                
+        public static TED_Media TED_Get_Media_URL_From_Talk(string id, bool logEverything)
+        {
+            var errorCount = 0;
+
+            TED_Media mediaObj = new TED_Media();
+
+            StringBuilder sb = new StringBuilder();
+
+            using (WebClient client = new WebClient())
+            {
+                try
+                {
+                    var Get_Talk_URL = string.Format(Constants.TED_API_Get_Talk_URL, id, Constants.API_Key);
+                    var response = client.DownloadString(Get_Talk_URL);
+                    JObject joResponse = JObject.Parse(response);
+
+                    var media = joResponse["talk"]["media"]["internal"];
+                    mediaObj = new TED_Media(media[Enums.GetEnumDescription(Enums.RevisedDownloadQuality.SixtyFourK)]);
+                }
+                catch (Exception e)
+                {
+                    errorCount++;
+                    sb.Append("Unable to get Video - " + id + " - " + e.Message);
+                }
+
+                //File.AppendAllText("log.txt", sb.ToString());
+                sb.Clear();
+            }
+
+            return mediaObj;
         }
     }
 }

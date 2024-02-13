@@ -1,7 +1,7 @@
 ﻿<Window x:Class="TEDinator.iCare"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Show your Support" Height="300" Width="450" WindowStyle="ToolWindow">
+        Title="Show your Support" Height="325" Width="475" WindowStyle="ToolWindow">
     <Grid>
         <StackPanel>
             <Label>To Show that you appreciate this tool, you can do one of the following : </Label>
