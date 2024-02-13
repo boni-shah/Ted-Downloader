@@ -17,7 +17,7 @@ namespace TEDinator
         public int download_quality = 1;   //0=Not Selected, 1=Low, 2=Medium, 3=High, By default Low Quality
         public IPAddress ipaddress;
         public int ipport = 0;
-        public String subtitle_language = String.Empty;
+        //public String subtitle_language = String.Empty;
         public bool Save_Succesful = false;
 
         public Settings(ApplicationSettings objApplicationSettings)
@@ -28,7 +28,7 @@ namespace TEDinator
             download_quality = objApplicationSettings.Download_Quality;
             ipaddress = objApplicationSettings.IPAddress;
             ipport = objApplicationSettings.IPPort;
-            subtitle_language = objApplicationSettings.SubtitleLanguage;
+            //subtitle_language = objApplicationSettings.SubtitleLanguage;
 
             if (!download_folder.Equals(Constants.NotFound))
                 DownloadFolderpath.Text = download_folder;
@@ -45,9 +45,9 @@ namespace TEDinator
             if (ipport != 0)
                 IPPorttxt.Text = ipport.ToString();
 
-            Subtitle_combo.SelectedValue = subtitle_language;
-            if (Subtitle_combo.SelectedValue == null)
-                Subtitle_combo.SelectedValue = "en";
+            //Subtitle_combo.SelectedValue = subtitle_language;
+            //if (Subtitle_combo.SelectedValue == null)
+            //    Subtitle_combo.SelectedValue = "en";
             Totalrun_value_lbl.Content = objApplicationSettings.RunCount;
         }
 
@@ -90,7 +90,7 @@ namespace TEDinator
                     download_quality = 2;
                 else
                     download_quality = 3;
-                subtitle_language = ((ComboBoxItem)Subtitle_combo.SelectedItem).Tag.ToString();
+                //subtitle_language = ((ComboBoxItem)Subtitle_combo.SelectedItem).Tag.ToString();
                 Save_Succesful = true;
                 this.Close();
             }

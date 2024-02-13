@@ -134,7 +134,7 @@
         <Grid Margin="2 5 2 2" HorizontalAlignment="Center">
             <Rectangle Fill="White" Height="30" HorizontalAlignment="Left" Name="Option_Rectangle" VerticalAlignment="Top" Width="700" />
             <CheckBox Content="Download All Videos" HorizontalAlignment="Left" Height="19" Name="Download_All_Videos_chkbx" Width="145" Margin="5 5 2 2" Checked="All_Videos_Select" Unchecked="All_Videos_UnSelect" />
-            <CheckBox Content="Download Subtitles for each Selected Video" Height="19" Margin="156,7,281,0" Name="Download_Subtitles_chkbx" VerticalAlignment="Top" Checked="Subtitle_Select_Msg_show" />
+            
             <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,5,5,5" Width="265">
                 <TextBlock Text="Export the Links to : " Margin="2 2 2 2"></TextBlock>
                 <Button x:Name="Exportlinksbtn" Content="Select a Value" Width="100" Background="{x:Null}" Click="Exportlinksbtn_Click"></Button>
@@ -162,5 +162,4 @@
         </Grid>
         <Label Height="28" Name="msglbl" FontWeight="Bold" VerticalAlignment="Bottom" />
     </StackPanel>
-
 </Window>
