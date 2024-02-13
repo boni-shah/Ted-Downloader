@@ -1,3 +1,3 @@
 # Ted-Downloader
 
-The source code for the TED downloader tool
+Download videos from TED.com
