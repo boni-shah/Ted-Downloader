@@ -96,10 +96,7 @@ namespace TEDinator
                     TEDLinks_All.Clear();
                 }));
                 var v = StaticLogic.TED_Analysis();
-                Main_Dispathcer.BeginInvoke(new Action(() =>
-                {
-                    TEDLinks_All = v;
-                }));
+                Main_Dispathcer.BeginInvoke(new Action(() => { TEDLinks_All = v; }));
             };
             TED_Analyser_Worker.RunWorkerCompleted += (s, args) =>
             {

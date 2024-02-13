@@ -7,6 +7,7 @@ namespace TEDinator.TEDClasses
         public const String TED_Homepage_URL = @"http://www.ted.com/";
         public const String TED_Talks_HomeURL = TED_Homepage_URL + "talks/";
         public const String TED_Downloadpage_URL = TED_Talks_HomeURL + "quick-list/";
+        public const String TED_Paginated_URL = TED_Talks_HomeURL + "quick-list?sort=date&order=desc&page=";
         public const String TED_Subtitle_HomeURL = TED_Talks_HomeURL + "lang/";
         public const String ScenarioSolution_Homepage = @"http://obinshah.wordpress.com";
         public const String ScenarioSolution_TEDTagpage = @"http://obinshah.wordpress.com/category/my-utilities/ted-downloader/";
