@@ -1,13 +1,9 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Windows;
 using System.Data;
 using System.Windows.Threading;
-using System.Windows.Controls;
-using System.Collections.ObjectModel;
-using System.Collections.Generic;
 
 
 namespace TED_Downloader
@@ -50,11 +46,7 @@ namespace TED_Downloader
             Exception InvalidTagException = new Exception(Exception_Error_Text);
             System.Windows.Forms.FolderBrowserDialog DownloadFolderBrowser = new System.Windows.Forms.FolderBrowserDialog();
             About Aboutbox;
-
             private delegate void SimpleTEDDelegate();
-
-            public ObservableCollection<TED_DList> TEDCol { get; set; }
-            public ObservableCollection<TED_DList> TEDCol_Selected { get; set; }
 
         #endregion
 
@@ -63,11 +55,6 @@ namespace TED_Downloader
             public MainWindow()
             {
                 InitializeComponent();
-
-                TEDCol = new ObservableCollection<TED_DList>();
-                TEDCol_Selected = new ObservableCollection<TED_DList>();
-                                
-                TED_Selected_Videos_Count_lbl.Content = String.Format("Videos Selected = {0}", TEDCol_Selected.Count);
             }
 
             private void GtTED_Click(object sender, RoutedEventArgs e)
@@ -82,8 +69,8 @@ namespace TED_Downloader
                     {
                         isDownload_Active = true;                        
                         if (TED_Analysis())
-                        {
-                            Selection_Screen.ItemsSource = TED_Links.DefaultView;
+                        {                            
+                            dataGrid1.ItemsSource = TED_Links.DefaultView;
 
                             //SimpleTEDDelegate Download_Invoke_Delegate = new SimpleTEDDelegate(TED_Download);   ///This will delegate TED_Download();
                             //Download_Invoke_Delegate.BeginInvoke(null, null);                            
@@ -111,73 +98,6 @@ namespace TED_Downloader
                 else
                     Aboutbox.Focus();
             }
-
-            void ChkAll_Checked(object sender, RoutedEventArgs e)
-            {
-                CheckBox chk = sender as CheckBox;
-                bool check = chk.IsChecked.Value;
-                                
-                foreach (TED_DList item in TEDCol)
-                {
-                    item.Status = check;
-                    if (!TEDCol_Selected.Contains(item))
-                        TEDCol_Selected.Add(item);
-
-                    Selection_Screen.SelectedItem = item;
-                    Selection_Screen.ScrollIntoView(item);
-                }
-
-                if (!check)
-                    TEDCol_Selected.Clear();
-
-                TED_Selected_Videos_Count_lbl.Content = String.Format("Videos Selected = {0}", TEDCol_Selected.Count);
-                //Selection_Screen.Items.Refresh();
-            }
-
-
-            private void Chk_Checked(object sender, RoutedEventArgs e)
-            {
-                String Temp_Title = ((sender as CheckBox).Tag as TED_DList).Title.ToString();
-                int index = -1;
-
-                foreach (TED_DList t in GetRow(Temp_Title))
-                {
-                    if (!TEDCol_Selected.Contains(t))
-                    {
-                        index = TEDCol.IndexOf(t);
-                        TEDCol_Selected.Add(t);
-
-                        if (index != -1)
-                            TEDCol[index].Status = true;
-
-                        TED_Selected_Videos_Count_lbl.Content = String.Format("Videos Selected = {0}", TEDCol_Selected.Count);
-                    }
-                }
-
-                //            Selection_Screen.ItemsSource = this.TEDCol;
-                //int index = TEDCol.IndexOf(new TED_DList { Title = "Boni Shah_21", Event_Name = "Obin Shah_", Status = "InActive"});
-                //TEDCol_Selected.Add(TEDCol[index]);
-            }
-
-            private ObservableCollection<TED_DList> GetRow(String Temp_Title)
-            {
-                ObservableCollection<TED_DList> filteredClients = null;
-                IEnumerable<TED_DList> qry = from c in TEDCol
-                                             where c.Title.ToUpper().Equals(Temp_Title.ToUpper())
-                                             orderby c.Title
-                                             select c;
-
-                filteredClients = new ObservableCollection<TED_DList>(qry);
-                return filteredClients;
-            }
-
-            private void Download_Selected(object sender, System.Windows.RoutedEventArgs e)
-            {
-                TED_Selected_Videos_Count_lbl.Content = "Videos remaining to be Downloaded = " + TEDCol_Selected.Count;
-                Selection_Screen.ItemsSource = this.TEDCol_Selected;
-
-            }
-
         #endregion
 
         #region Logic Functions
@@ -297,7 +217,7 @@ namespace TED_Downloader
                                 text = reader.ReadLine(); //this will read </tr>  e.g. "\t</tr>"
                                 if (!text.Contains("\t</tr>"))
                                     throw InvalidTagException;
-                                TEDCol.Add(new TED_DList { Title = Video_Title, Event_Name = Place, Status = false });
+
                                 TED_Links.Rows.Add(Date, Place, Video_Title, Video_HomePage, Duration, Download_Location);
                                 TED_Videos_Count++;
                                 TED_Progress_Bar_lbl.Content = "Generating List of Links to be Downloaded.  Link Added : " + TED_Videos_Count;
