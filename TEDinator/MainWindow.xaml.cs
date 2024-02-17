@@ -52,6 +52,7 @@ namespace TEDinator
 
         string TempfileName = String.Empty;
         string ActualFileName = String.Empty;
+        string FileSize = "";
 
         #endregion
 
@@ -95,15 +96,17 @@ namespace TEDinator
                     TEDLinks_Selected.Clear();
                     TEDLinks_All.Clear();
                 }));
+
                 var v = RevisedStaticLogic.TED_Analyse_Talks(false, ref TED_Analyser_Worker);
+
                 Main_Dispathcer.BeginInvoke(new Action(() => {
                     TEDLinks_All = v;
 
                     enableScreen(true);
                     if (TEDLinks_All != null && TEDLinks_All.Count != 0)
                         Selection_Screen.ItemsSource = TEDLinks_All;
-                    
-                    msglbl.Content = String.Format(Constants.AnalysisDonemsg, TEDLinks_All != null  ? TEDLinks_All.Count() : 0);
+
+                    msglbl.Content = String.Format(Constants.AnalysisDonemsg, TEDLinks_All == null ? 0 : TEDLinks_All.Count());
 
                     OverallProgressBar.Value = 0;
                     OverallProgresslbl.Content = Constants.ZeroPercentDonemsg;
@@ -160,8 +163,8 @@ namespace TEDinator
 
         private String CreateProperName(String Old_Target_Path)
         {
-            String New_Target_Path = String.Empty;
-            foreach (Char c in Old_Target_Path)
+            var New_Target_Path = String.Empty;
+            foreach (var c in Old_Target_Path)
                 if (c == '\\' || c == '/' || c == ':' || c == '*' || c == '?' || c == '<' || c == '\"' || c == '>' || c == '|')     //Removes  \/:*?"<>|
                     New_Target_Path += " - ";
                 else
@@ -184,10 +187,10 @@ namespace TEDinator
 
         private string FromMilliSecondstoString(int millisecs)
         {
-            int hours = millisecs / 1000 / 60 / 60;
-            int mins = millisecs / 1000 / 60 % 60;
-            int secs = millisecs / 1000 % 60;
-            int ms = millisecs % 1000;
+            var hours = millisecs / 1000 / 60 / 60;
+            var mins = millisecs / 1000 / 60 % 60;
+            var secs = millisecs / 1000 % 60;
+            var ms = millisecs % 1000;
 
             return (String.Format("{0:00}:{1:00}:{2:00},{3:000}", hours, mins, secs, ms));
         }
@@ -368,14 +371,16 @@ namespace TEDinator
             var VideoFileName = String.Empty;
             var TargetPath = String.Empty;
 
+            FileSize = "";
+
             while (current <= total)
             {
                 var TED_Object = TEDLinks_Selected[current - 1];
+                //Earlier - //TargetPath = ObjApplicationSettings.Download_Folder + @"\TED_" + (Enums.DownloadQuality)ObjApplicationSettings.Download_Quality + "\\" + TED_Object.Event_Name + "_" + TED_Object.Date;
+                //Later - //TargetPath = ObjApplicationSettings.Download_Folder + @"\TED_" + (Enums.DownloadQuality)ObjApplicationSettings.Download_Quality + "\\" + TED_Object.Event_Name;
                 TargetPath = ObjApplicationSettings.Download_Folder + @"\TED_" + (Enums.DownloadQuality)ObjApplicationSettings.Download_Quality
                     + "\\" + Regex.Replace(TED_Object.Event_Name, "[*:\"<>?]", "_") + "_" + TED_Object.Date;
-
-                //TargetPath = Regex.Replace(TargetPath, "[*:\"<>?]", "_");
-
+                
                 VideoFileName = TargetPath + "\\" + CreateProperName(TED_Object.Title) + ".mp4";
 
                 if (File.Exists(VideoFileName))
@@ -389,30 +394,42 @@ namespace TEDinator
                 var index = current - 1;
                 var TED_Object = TEDLinks_Selected[index];
 
-                var TED_Media_Obj = RevisedStaticLogic.TED_Get_Media_URL_From_Talk(TED_Object.Id, true);
+                var isSuccessful = true;
+                var TED_Media_Obj = RevisedStaticLogic.TED_Get_Media_URL_From_Talk(TED_Object.Id, ObjApplicationSettings.Download_Quality, true, ref isSuccessful);
 
-                var PercentDone = (int)((float)(index) / total * 100);
-                OverallProgressBar.Value = PercentDone;
-                OverallProgresslbl.Content = PercentDone + "%";
-                OverallProgressBar.ToolTip = Constants.Progressbarmsg(PercentDone);
+                if (isSuccessful)
+                {
+                    var PercentDone = (int)((float)(index) / total * 100);
+                    OverallProgressBar.Value = PercentDone;
+                    OverallProgresslbl.Content = PercentDone + "%";
+                    OverallProgressBar.ToolTip = Constants.Progressbarmsg(PercentDone);
 
-                IndividualProgressBar.Value = 0;
-                IndividualProgresslbl.Content = Constants.ZeroPercentDonemsg;
-                msglbl.Content = "Downloading " + TED_Object.Title + "...";
+                    IndividualProgressBar.Value = 0;
+                    IndividualProgresslbl.Content = Constants.ZeroPercentDonemsg;
+                    msglbl.Content = "Downloading " + TED_Object.Title + "...";
 
-                TED_Progress_Notification_txt.Text += String.Format(Constants.DownloadingItemmsg, TED_Object.Title);
-                TED_Progress_Notification_txt.Text += String.Format(Constants.Sizemsg, TED_Media_Obj.Size);
-                TED_Progress_Notification_txt.ScrollToEnd();
+                    FileSize = TED_Media_Obj.Size;
 
-                if (!Directory.Exists(TargetPath)) 
-                    Directory.CreateDirectory(TargetPath);
+                    TED_Progress_Notification_txt.Text += String.Format(Constants.DownloadingItemmsg, TED_Object.Title, FileSize);
+                    TED_Progress_Notification_txt.ScrollToEnd();
 
-                if (File.Exists(VideoFileName))
-                    return;
+                    if (!Directory.Exists(TargetPath))
+                        Directory.CreateDirectory(TargetPath);
 
-                ActualFileName = VideoFileName;
+                    if (File.Exists(VideoFileName))
+                        return;
 
-                DownloadVideo(TED_Media_Obj.URL, current);
+                    ActualFileName = VideoFileName;
+
+                    DownloadVideo(TED_Media_Obj.URL, current);
+                }
+                else
+                {
+                    TED_Progress_Notification_txt.Text += string.Format(Constants.VideoDownloadFailed, "Unable to extract Video URL");
+                    TED_Progress_Notification_txt.ScrollToEnd();
+                    current++;
+                    QueueDownloadFiles();
+                }
             }
             else
             {
@@ -449,7 +466,7 @@ namespace TEDinator
         {
             ButtonSkip.IsEnabled = true;
             TempfileName = Path.GetTempFileName();
-            if (url.Equals(Constants.NotFound))
+            if (string.IsNullOrEmpty(url) || url.Equals(Constants.NotFound))
             {
                 TED_Progress_Notification_txt.Text += Constants.VideoNotAvailable;
                 TED_Progress_Notification_txt.ScrollToEnd();
@@ -464,7 +481,7 @@ namespace TEDinator
         public void Video_WC_DownloadProgressChanged(Object sender, DownloadProgressChangedEventArgs e)
         {
             IndividualProgressBar.Value = e.ProgressPercentage;
-            IndividualProgresslbl.Content = IndividualProgressBar.Value + " %";
+            IndividualProgresslbl.Content = IndividualProgressBar.Value + " % of " + FileSize;
         }
 
         void Video_WC_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)

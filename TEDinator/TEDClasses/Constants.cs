@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TEDinator.TEDClasses
+﻿namespace TEDinator.TEDClasses
 {
     public static class Constants
     {
@@ -35,32 +33,32 @@ namespace TEDinator.TEDClasses
         public const string ZeroPercentDonemsg = "0%";
 
         public const string OneInstanceAllowedmsg = "Only one Instance allowed. Application is already running.";
-        public const string ExceptionErrormsg = "Invalid Tag Encountered. Please Restart Application.";
+        public const string ExceptionErrormsg = "Invalid Tag Encountered. Please restart application.";
         public const string ErrormsgHeader = "Ouch!!! We just had a Boo-Boo!!";
         public const string UserErrormsg = "User Error!!";
         public const string DownloadErrormsg = "Please wait for the current download to finish!!";
-        public const string ConnectionErrormsg = "Connection Error!! Please Check the Proxy Settings.";
-        public const string ValidPathErrormsg = "Please Select a Valid Folder Path!!";
-        public const string NoFileSelectedErrormsg = "No Video has been selected. Please select One or More Videos.";
+        public const string ConnectionErrormsg = "Connection Error!! Please check the proxy settings.";
+        public const string ValidPathErrormsg = "Please select a valid folder path!!";
+        public const string NoFileSelectedErrormsg = "No video has been selected. Please select one or more videos.";
         public const string SiteErrormsg = "There seems to be some problem with the Site. It has reported 0 Videos.Try running the app after some time.";
-        public const string ErrorContactmsg = "If you are seeing this msg a lot often. Contact me and do let me know. I might be blissfully unaware of this issue.";
-        public const string TermnotFoundErrormsg = "The Specified text was not found";
+        public const string ErrorContactmsg = "If you are seeing this message a lot often. Contact me and do let me know. I might be blissfully unaware of this issue.";
+        public const string TermnotFoundErrormsg = "The specified text was not found";
         public const string SingleItemErrormsg = "This is the only item present";
 
-        public const string SlowProcessmsg = "Do note that this might make the Download Process a little slower.";
+        public const string SlowProcessmsg = "Do note that this might make the download process a little slower.";
         public const string Analysingmsg = "Please wait. Getting a list of latest available videos from the TED Website...";
 
         public const string DownloadCompleted = "Download Completed";
         public const string DownloadCancelled = "Download Cancelled";
         public const string Success = "Success!!";
         public const string SubtitleDownloadFailed = "Subtitle Download Failed.\n";
-        public const string SubtitleDownloadSuccesful = "Subtitle Download Succesful.\n";
+        public const string SubtitleDownloadSuccesful = "Subtitle Download Successful.\n";
         public const string SelectedLangSubtitleNotAvailable = "Subtitles not available for Selected language. Downloading English Subtitles.\n";
         public const string SubtitleNotAvailable = "Subtitles have not been created for this item.\n";
-        public const string VideoNotAvailable = "Video not Available.\n";
-        public const string VideoDownloadFailed = "Video Download Failed. Reason - {0}\n";
-        public const string VideoDownloadSuccesful = "Video Download Succesful.\n";
-        public const string VideoSkippedmsg = "This Video has been skipped by the User.\n";
+        public const string VideoNotAvailable = "This video is not available for the selected video quality.\n";
+        public const string VideoDownloadFailed = "Video download failed. Reason - {0}\n";
+        public const string VideoDownloadSuccesful = "Video download successful.\n";
+        public const string VideoSkippedmsg = "This video has been skipped by the user.\n";
 
         public const string on0 = "Nothing to see here yet!!!";
         public const string between0_10 = "This is going to take some time. Don't hold your breath!!!";
@@ -80,7 +78,7 @@ namespace TEDinator.TEDClasses
         public const string AnalysisDonemsg = "Link analysis done. Total {0} Videos Found.";
         public const string DisplayCountLblmsg = "Videos Selected : {0} of {1}\n";
         public const string DownloadStartmsg = "Starting Download Process...\n";
-        public const string DownloadingItemmsg = "Downloading item : {0} \n";
+        public const string DownloadingItemmsg = "Downloading item : {0} (size : {1}) \n";
         public const string Sizemsg = "Size : {0} \n";
 
         public const string Search_Limit = "100";
@@ -89,34 +87,34 @@ namespace TEDinator.TEDClasses
         {
             if (ProgressPercent == 0)
                 return on0;
-            else if (ProgressPercent > 0 && ProgressPercent <= 10)
+            if (ProgressPercent > 0 && ProgressPercent <= 10)
                 return between0_10;
-            else if (ProgressPercent > 10 && ProgressPercent <= 20)
+            if (ProgressPercent > 10 && ProgressPercent <= 20)
                 return between10_20;
-            else if (ProgressPercent > 20 && ProgressPercent <= 30)
+            if (ProgressPercent > 20 && ProgressPercent <= 30)
                 return between20_30;
-            else if (ProgressPercent > 30 && ProgressPercent <= 40)
+            if (ProgressPercent > 30 && ProgressPercent <= 40)
                 return between30_40;
-            else if (ProgressPercent > 40 && ProgressPercent <= 50)
+            if (ProgressPercent > 40 && ProgressPercent <= 50)
                 return between40_50;
-            else if (ProgressPercent > 50 && ProgressPercent <= 60)
+            if (ProgressPercent > 50 && ProgressPercent <= 60)
                 return between50_60;
-            else if (ProgressPercent > 60 && ProgressPercent <= 70)
+            if (ProgressPercent > 60 && ProgressPercent <= 70)
                 return between60_70;
-            else if (ProgressPercent > 70 && ProgressPercent <= 80)
+            if (ProgressPercent > 70 && ProgressPercent <= 80)
                 return between70_80;
-            else if (ProgressPercent > 80 && ProgressPercent <= 90)
+            if (ProgressPercent > 80 && ProgressPercent <= 90)
                 return between80_90;
-            else if (ProgressPercent > 90 && ProgressPercent < 100)
+            if (ProgressPercent > 90 && ProgressPercent < 100)
                 return between90_100;
 
-            return "Invalid Value Encountered"; ;
+            return "Invalid Value Encountered";
         }
 
         public static string FormatSizeToString(double len)
         {
             string[] sizes = { "B", "KB", "MB", "GB" };
-            int order = 0;
+            var order = 0;
             while (len >= 1024 && order + 1 < sizes.Length)
             {
                 order++;

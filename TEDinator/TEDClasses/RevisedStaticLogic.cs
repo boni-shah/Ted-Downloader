@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -211,10 +210,10 @@ namespace TEDinator.TEDClasses
             var errorCount = 0;
 
             var TED_Events = TED_Get_All_Events(logEverything);
-            //File.WriteAllLines("EventList.txt", TED_Events.Select(x=>x.Name));   --- To print the list of events
+
             ObservableCollection<TED_Talk_Display> TEDLinks_All = new ObservableCollection<TED_Talk_Display>();
 
-            //StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
 
             using (WebClient client = new WebClient())
             {
@@ -253,7 +252,7 @@ namespace TEDinator.TEDClasses
                                 Event_Name = event_name,
                                 Video_Homepage = ""
                             });
-                            //sb.Append(string.Format("Id: {0} \nName: {1}", talk["id"].ToString(), talk["name"].ToString()));
+                            sb.Append(string.Format("Id: {0} \nName: {1}", talk["id"].ToString(), talk["name"].ToString()));
                         }
 
                         lastCurrentCount = currentCount;
@@ -261,20 +260,17 @@ namespace TEDinator.TEDClasses
 
                         try
                         {
-                            var percerntage = (int) (0.5f + ((100f*currentCount)/totalTalksCount));
+                            var percerntage = (int)(0.5f + ((100f * currentCount) / totalTalksCount));
                             TED_Analyser_Worker.ReportProgress(percerntage);
                         }
-                        catch (Exception e)
-                        {
-                            //sb.Append("This was a big mistake - " + e.Message);
-                        }
+                        catch (Exception e) { sb.Append("This was a big mistake - " + e.Message); }
 
-                        //sb.Append(string.Format("\n\nTotal Count: {0} Current Count: {1} talksInResponseCount : {2}\n\n", totalTalksCount, currentCount, talksInResponseCount));
+                        sb.Append(string.Format("\n\nTotal Count: {0} Current Count: {1} talksInResponseCount : {2}\n\n", totalTalksCount, currentCount, talksInResponseCount));
                     }
                     catch (Exception e)
                     {
                         errorCount++;
-                        //sb.Append("This was a big mistake - " + e.Message);
+                        sb.Append("This was a big mistake - " + e.Message);
 
                         if (errorCount >= ERROR_THRESHOLD)
                             break;
@@ -282,7 +278,7 @@ namespace TEDinator.TEDClasses
                 }
 
                 //File.AppendAllText("log.txt", sb.ToString());
-                //sb.Clear();
+                sb.Clear();
             }
 
             return TEDLinks_All;
@@ -359,13 +355,9 @@ namespace TEDinator.TEDClasses
 
         }
                 
-        public static TED_Media TED_Get_Media_URL_From_Talk(string id, bool logEverything)
+        public static TED_Media TED_Get_Media_URL_From_Talk(string id, int downloadQuality, bool logEverything, ref bool isSuccessful)
         {
-            var errorCount = 0;
-
             TED_Media mediaObj = new TED_Media();
-
-            StringBuilder sb = new StringBuilder();
 
             using (WebClient client = new WebClient())
             {
@@ -376,16 +368,12 @@ namespace TEDinator.TEDClasses
                     JObject joResponse = JObject.Parse(response);
 
                     var media = joResponse["talk"]["media"]["internal"];
-                    mediaObj = new TED_Media(media[Enums.GetEnumDescription(Enums.RevisedDownloadQuality.SixtyFourK)]);
+                    mediaObj = new TED_Media(media[Enums.GetEnumDescription( (Enums.RevisedDownloadQuality)downloadQuality)]);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    errorCount++;
-                    sb.Append("Unable to get Video - " + id + " - " + e.Message);
+                    isSuccessful = false;
                 }
-
-                //File.AppendAllText("log.txt", sb.ToString());
-                sb.Clear();
             }
 
             return mediaObj;
