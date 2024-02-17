@@ -19,6 +19,14 @@ namespace TEDinator.TEDClasses
 
         public enum RevisedDownloadQuality
         {
+            [Description("podcast-light")]
+            PodcastLight = 1,
+            [Description("podcast-regular")]
+            PodcastRegular = 2,
+            [Description("podcast-high")]
+            PodcastHigh = 3,
+
+
             [Description("64k")]
             SixtyFourK = 4,
             [Description("180k")]
@@ -31,12 +39,12 @@ namespace TEDinator.TEDClasses
             SixHundredK = 8,
             [Description("950k")]
             NineFiftyK = 9,
-            [Description("podcast-light")]
-            PodcastLight = 10,
-            [Description("podcast-regular")]
-            PodcastRegular = 11,
-            [Description("podcast-high")]
-            PodcastHigh = 12,
+            //[Description("podcast-light")]
+            //PodcastLight = 10,
+            //[Description("podcast-regular")]
+            //PodcastRegular = 11,
+            //[Description("podcast-high")]
+            //PodcastHigh = 12,
             [Description("audio-podcast")]
             AudioPodcast = 13,
             [Description("podcast-low-en")]

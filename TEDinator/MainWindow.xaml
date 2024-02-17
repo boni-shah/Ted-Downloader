@@ -126,7 +126,7 @@
                     </DataGridTextColumn>
                     <DataGridTextColumn Header="Event Name" Binding="{Binding Event_Name}" Width="150" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="90" IsReadOnly="True"/>
-                    <!--<DataGridTextColumn  Header="Date"  SortMemberPath="Date.Year" Binding="{Binding Date,StringFormat=dd/MMM/yyyy}" Width="90" IsReadOnly="True"/>-->
+
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

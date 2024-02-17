@@ -126,14 +126,28 @@ namespace TEDinator.TEDClasses
             try
             {
                 var url = TEDMediaJSON["uri"].ToString();
-                var size = TEDMediaJSON["filesize_bytes"].ToString();
+                long size = 0;
+                long.TryParse(TEDMediaJSON["filesize_bytes"].ToString(), out size);
                 var mime_type = TEDMediaJSON["mime_type"].ToString();
 
                 URL = url;
-                Size = size;
+                Size = FormatBytes(size);
                 MIME_Type = mime_type;
             }
             catch (Exception) { }
+        }
+
+        private string FormatBytes(long bytes)
+        {
+            string[] Suffix = { "B", "KB", "MB", "GB", "TB" };
+            int i;
+            double dblSByte = bytes;
+            for (i = 0; i < Suffix.Length && bytes >= 1024; i++, bytes /= 1024)
+            {
+                dblSByte = bytes / 1024.0;
+            }
+
+            return String.Format("{0:0.##} {1}", dblSByte, Suffix[i]);
         }
     }
 }
